@@ -50,7 +50,7 @@ streamlit run app.py
 > Puedes subir esta app a [Streamlit Cloud](https://streamlit.io/cloud) para obtener un enlace web gratuito.  
 > Una vez lo hagas, reemplaza este texto con tu enlace:
 
-📍 `https://YennyCC-juego-insectos.streamlit.app` *(ejemplo)*
+📍 https://juegoinsectos.streamlit.app/
 
 ---
 
