@@ -59,7 +59,7 @@ streamlit run app.py
 ```
 📁 siluetas/         # Siluetas PNG de insectos
 📄 app.py            # Código principal del juego
-📄 fondo.png         # Imagen de fondo de la app
+📄 fondo.jpg         # Imagen de fondo de la app
 📄 requirements.txt  # Dependencias para instalar
 📄 README.md         # Este archivo
 ```
