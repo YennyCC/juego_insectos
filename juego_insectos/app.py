@@ -114,7 +114,6 @@ if "insecto_actual" not in st.session_state:
     st.session_state.insecto_actual = random.choice(insectos)
 
 # ---- CONTENEDOR DE IMAGEN ----
-# ---- Contenedor de imagen ----
 imagen_placeholder = st.empty()
 
 
@@ -136,15 +135,17 @@ with col2:
             st.rerun()
 
 # ---- EFECTO RULETA ----
+# ---- EFECTO RULETA ----
 if st.session_state.girando:
     for _ in range(30):
         st.session_state.insecto_actual = random.choice(insectos)
-       ruta = st.session_state.insecto_actual["imagen"]
-if os.path.exists(ruta):
-    img = Image.open(ruta)
-    imagen_placeholder.image(img, width=250)
+        ruta = st.session_state.insecto_actual["imagen"]
+        if os.path.exists(ruta):
+            img = Image.open(ruta)
+            imagen_placeholder.image(img, width=250)
         time.sleep(0.06)
     st.rerun()
+
 
 # ---- PREGUNTA ----
 st.markdown('<div class="pregunta">¿A qué orden pertenece este insecto?</div>', unsafe_allow_html=True)
