@@ -78,6 +78,14 @@ st.markdown("""
 </h1>
 """, unsafe_allow_html=True)
 
+def mostrar_imagen_actual():
+    ruta = st.session_state.insecto_actual["imagen"]
+    if not os.path.exists(ruta):
+        st.error(f"❌ Imagen no encontrada: {ruta}")
+        return
+    img = Image.open(ruta)
+    imagen_placeholder.image(img, width=260)
+
 
 # Datos
 # Lista de insectos con sus rutas de imagen y órdenes
