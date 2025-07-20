@@ -3,6 +3,8 @@ import random
 import time
 from PIL import Image
 import base64
+import os
+
 
 # ---- FONDO PERSONALIZADO ----
 def set_background(image_file):
@@ -115,10 +117,6 @@ if "insecto_actual" not in st.session_state:
 # ---- Contenedor de imagen ----
 imagen_placeholder = st.empty()
 
-# ---- Función para mostrar imagen actual ----
-def mostrar_imagen_actual():
-    img = Image.open(st.session_state.insecto_actual["imagen"])
-    imagen_placeholder.image(img, width=260)
 
 # ---- Mostrar imagen si no está girando ----
 if not st.session_state.girando:
@@ -141,8 +139,10 @@ with col2:
 if st.session_state.girando:
     for _ in range(30):
         st.session_state.insecto_actual = random.choice(insectos)
-        img = Image.open(st.session_state.insecto_actual["imagen"])
-        imagen_placeholder.image(img, width=250)
+       ruta = st.session_state.insecto_actual["imagen"]
+if os.path.exists(ruta):
+    img = Image.open(ruta)
+    imagen_placeholder.image(img, width=250)
         time.sleep(0.06)
     st.rerun()
 
