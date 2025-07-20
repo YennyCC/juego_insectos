@@ -44,7 +44,7 @@ streamlit run app.py
 
 ## 🌐 Versión en línea
 
-📍 `https://YennyCC-juego-insectos.streamlit.app`
+📍 https://juegoinsectos.streamlit.app/
 
 ---
 
