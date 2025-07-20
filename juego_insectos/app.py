@@ -83,10 +83,13 @@ st.markdown("""
 def mostrar_imagen_actual():
     ruta = st.session_state.insecto_actual["imagen"]
     if not os.path.exists(ruta):
-        st.error(f"❌ Imagen no encontrada: {ruta}")
+        st.warning(f"⚠️ Imagen no encontrada: {ruta}")
         return
-    img = Image.open(ruta)
-    imagen_placeholder.image(img, width=260)
+    try:
+        img = Image.open(ruta)
+        imagen_placeholder.image(img, width=260)
+    except:
+        st.error("No se pudo abrir la imagen.")
 
 
 # Datos
