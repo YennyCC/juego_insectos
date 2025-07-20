@@ -95,15 +95,15 @@ def mostrar_imagen_actual():
 # Datos
 # Lista de insectos con sus rutas de imagen y órdenes
 insectos = [
-    {"nombre": "Mariposa", "orden": "Lepidoptera", "imagen": "siluetas/mariposa.png"},
-    {"nombre": "Escarabajo", "orden": "Coleoptera", "imagen": "siluetas/escarabajo.png"},
-    {"nombre": "Abeja", "orden": "Hymenoptera", "imagen": "siluetas/abeja.png"},
-    {"nombre": "Libélula", "orden": "Odonata", "imagen": "siluetas/libelula.png"},
-    {"nombre": "Chinche", "orden": "Hemiptera", "imagen": "siluetas/chinche.png"},
-    {"nombre": "Mosquito", "orden": "Diptera", "imagen": "siluetas/mosquito.png"},
-    {"nombre": "Saltamontes", "orden": "Orthoptera", "imagen": "siluetas/saltamontes.png"},
-    {"nombre": "Cucaracha", "orden": "Blattodea", "imagen": "siluetas/cucaracha.png"},
-    {"nombre": "Mantis", "orden": "Mantodea", "imagen": "siluetas/mantis.png"}
+    {"nombre": "Mariposa", "orden": "Lepidoptera", "imagen": "https://github.com/YennyCC/juego_insectos/blob/main/juego_insectos/siluetas/mariposa.png"},
+    {"nombre": "Escarabajo", "orden": "Coleoptera", "imagen": "https://github.com/YennyCC/juego_insectos/blob/main/juego_insectos/siluetas/escarabajo.png"},
+    {"nombre": "Abeja", "orden": "Hymenoptera", "imagen": "https://github.com/YennyCC/juego_insectos/blob/main/juego_insectos/siluetas/abeja.png"},
+    {"nombre": "Libélula", "orden": "Odonata", "imagen": "https://github.com/YennyCC/juego_insectos/blob/main/juego_insectos/siluetas/libelula.png"},
+    {"nombre": "Chinche", "orden": "Hemiptera", "imagen": "https://github.com/YennyCC/juego_insectos/blob/main/juego_insectos/siluetas/chinche.png"},
+    {"nombre": "Mosquito", "orden": "Diptera", "imagen": "https://github.com/YennyCC/juego_insectos/blob/main/juego_insectos/siluetas/mosquito.png"},
+    {"nombre": "Saltamontes", "orden": "Orthoptera", "imagen": "https://github.com/YennyCC/juego_insectos/blob/main/juego_insectos/siluetas/saltamontes.png"},
+    {"nombre": "Cucaracha", "orden": "Blattodea", "imagen": "https://github.com/YennyCC/juego_insectos/blob/main/juego_insectos/siluetas/cucaracha.png"},
+    {"nombre": "Mantis", "orden": "Mantodea", "imagen": "https://github.com/YennyCC/juego_insectos/blob/main/juego_insectos/siluetas/mantis.png"}
 
 ]
 
