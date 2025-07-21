@@ -160,7 +160,8 @@ with col1:
             st.session_state.girando = True
             st.session_state.stop = False
             st.session_state.frame = 0
-            st.experimental_rerun()
+            st.rerun()
+
 
 with col2:
     if st.session_state.girando and not st.session_state.stop:
