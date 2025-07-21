@@ -123,6 +123,7 @@ if not st.session_state.girando:
 
     # Botones (solo visibles cuando NO está girando)
     col1, col2 = st.columns(2, gap="large")
+    
 with col1:
     if st.button("🎯 Girar Ruleta", key="girar"):
         st.session_state.girando = True
