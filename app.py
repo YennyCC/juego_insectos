@@ -5,8 +5,7 @@ from PIL import Image
 import base64
 import os
 
-
-# ---- FONDO PERSONALIZADO ----
+# -------- FONDO PERSONALIZADO --------
 def set_background(image_file):
     with open(image_file, "rb") as f:
         data = f.read()
@@ -25,15 +24,15 @@ def set_background(image_file):
 
 set_background("fondo.jpg")
 
-# ---- ESTILOS PERSONALIZADOS ----
+# -------- ESTILOS PERSONALIZADOS --------
 st.markdown("""
     <style>
-  .block-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+    .block-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
     .pregunta {
         font-size: 28px;
@@ -53,20 +52,18 @@ st.markdown("""
         margin: 0.5em auto;
     }
 
-/* Imagen del insecto más grande y centrada dentro de su contenedor */
-div.stImage > img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 260px;
-    border-radius: 12px;
-    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
-}
-
+    div.stImage > img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 260px;
+        border-radius: 12px;
+        box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# ---- TÍTULO PRINCIPAL ----
+# -------- TÍTULO --------
 st.markdown("""
 <h1 style='
     text-align: center;
@@ -80,17 +77,15 @@ st.markdown("""
 </h1>
 """, unsafe_allow_html=True)
 
-def mostrar_imagen_actual():
-    ruta = st.session_state.insecto_actual["imagen"]
-    if not os.path.exists(ruta):
-        st.warning(f"⚠️ Imagen no encontrada: {ruta}")
-        return
-    try:
-        img = Image.open(ruta)
-        imagen_placeholder.image(img, width=260)
-    except:
-        st.error("No se pudo abrir la imagen.")
-
+# -------- INICIALIZACIÓN DE ESTADO --------
+if "girando" not in st.session_state:
+    st.session_state.girando = False
+if "stop" not in st.session_state:
+    st.session_state.stop = False
+if "frame" not in st.session_state:
+    st.session_state.frame = 0
+if "insecto_actual" not in st.session_state:
+    st.session_state.insecto_actual = {}
 
 # Datos
 # Lista de insectos con sus rutas de imagen y órdenes
@@ -107,52 +102,26 @@ insectos = [
 
 ]
 
-ordenes = ["Blattodea", "Coleoptera", "Diptera", "Hemiptera", "Hymenoptera", "Lepidoptera", "Mantodea", "Odonata", "Orthoptera"]
+ordenes = sorted(list(set(i["orden"] for i in insectos)))
 
-
-# ---- ESTADO ----
-if "girando" not in st.session_state:
-    st.session_state.girando = False
-    
-if "stop" not in st.session_state:
-    st.session_state.stop = False
-    
-if "insecto_actual" not in st.session_state:
-    st.session_state.insecto_actual = random.choice(insectos)
-    
-if "frame" not in st.session_state:
-    st.session_state.frame = 0
-
-
-# ---- CONTENEDOR DE IMAGEN ----
+# -------- CONTENEDOR DE IMAGEN --------
 imagen_placeholder = st.empty()
 
-# ---- Mostrar imagen ----
 def mostrar_imagen_actual():
-    ruta = st.session_state.insecto_actual["imagen"]
+    ruta = st.session_state.insecto_actual.get("imagen", "")
     if os.path.exists(ruta):
         img = Image.open(ruta)
         imagen_placeholder.image(img, width=260)
-
-# ---- EFECTO RULETA ----
-if st.session_state.girando and not st.session_state.stop:
-    st.session_state.insecto_actual = random.choice(insectos)
-    mostrar_imagen_actual()
-    time.sleep(0.05)
-    st.session_state.frame += 1
-
-    if st.session_state.frame >= 50:
-        st.session_state.girando = False
-        st.session_state.frame = 0
     else:
-        st.rerun()  # continue to next frame
+        imagen_placeholder.warning(f"⚠️ Imagen no encontrada: {ruta}")
 
-
-# ---- Mostrar imagen si no está girando ----
+# -------- MOSTRAR IMAGEN SI NO ESTÁ GIRANDO --------
 if not st.session_state.girando:
+    if not st.session_state.insecto_actual:
+        st.session_state.insecto_actual = random.choice(insectos)
     mostrar_imagen_actual()
 
-# ---- BOTONES DE RUEDA ----
+# -------- BOTONES --------
 col1, col2 = st.columns(2, gap="large")
 with col1:
     if not st.session_state.girando:
@@ -162,30 +131,32 @@ with col1:
             st.session_state.frame = 0
             st.rerun()
 
-
 with col2:
     if st.session_state.girando and not st.session_state.stop:
         if st.button("🛑 Detener"):
             st.session_state.stop = True
             st.session_state.girando = False
 
-            
-# ---- EFECTO RULETA ----
-if st.session_state.girando:
-    for _ in range(50):
-        st.session_state.insecto_actual = random.choice(insectos)
-        mostrar_imagen_actual()
-        time.sleep(0.05)
-    st.session_state.girando = False  # Stop automatically after spin
+# -------- EFECTO RULETA (animación paso a paso) --------
+if st.session_state.girando and not st.session_state.stop:
+    st.session_state.insecto_actual = random.choice(insectos)
+    mostrar_imagen_actual()
+    time.sleep(0.08)
+    st.session_state.frame += 1
 
+    if st.session_state.frame >= 40:
+        st.session_state.girando = False
+        st.session_state.frame = 0
+    else:
+        st.rerun()
 
-# ---- PREGUNTA ----
+# -------- PREGUNTA --------
 st.markdown('<div class="pregunta">¿A qué orden pertenece este insecto?</div>', unsafe_allow_html=True)
 
-# ---- OPCIONES ----
+# -------- OPCIONES --------
 orden_seleccionado = st.radio("", ordenes, key="orden_radio", horizontal=False)
 
-# ---- COMPROBAR ----
+# -------- COMPROBAR --------
 if st.button("Comprobar"):
     actual = st.session_state.insecto_actual
     if orden_seleccionado == actual["orden"]:
@@ -193,11 +164,10 @@ if st.button("Comprobar"):
     else:
         st.error(f"❌ Incorrecto. Era un {actual['nombre']} ({actual['orden']})")
 
-# ---- REINICIAR ----
+# -------- REINICIAR --------
 if st.button("🔄 Reiniciar"):
     st.session_state.insecto_actual = random.choice(insectos)
     st.session_state.girando = False
     st.session_state.stop = False
     st.session_state.frame = 0
     mostrar_imagen_actual()
-
