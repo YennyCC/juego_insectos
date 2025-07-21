@@ -145,7 +145,7 @@ if st.session_state.girando and not st.session_state.stop:
         st.session_state.girando = False
         st.session_state.frame = 0
     else:
-        st.experimental_rerun()  # continue to next frame
+        st.rerun()  # continue to next frame
 
 
 # ---- Mostrar imagen si no está girando ----
