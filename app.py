@@ -158,7 +158,7 @@ with col2:
             
 # ---- EFECTO RULETA ----
 if st.session_state.girando:
-    for _ in range(25):
+    for _ in range(50):
         st.session_state.insecto_actual = random.choice(insectos)
         mostrar_imagen_actual()
         time.sleep(0.05)
