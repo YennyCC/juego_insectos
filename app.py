@@ -138,9 +138,8 @@ with col2:
             st.rerun()
 
 # ---- EFECTO RULETA ----
-# ---- EFECTO RULETA ----
 if st.session_state.girando:
-    for _ in range(30):
+    for _ in range(40):
         st.session_state.insecto_actual = random.choice(insectos)
         ruta = st.session_state.insecto_actual["imagen"]
         if os.path.exists(ruta):
