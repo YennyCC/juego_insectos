@@ -65,6 +65,3 @@ streamlit run app.py
 Este proyecto fue desarrollado por **YennyCC** con fines educativos y de divulgación.  
 Puedes adaptarlo, compartirlo o expandirlo con más insectos, niveles, idiomas o estilos visuales.
 
----
-
-🧡 ¡Gracias por jugar y aprender con nosotros!
