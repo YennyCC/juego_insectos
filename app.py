@@ -104,7 +104,7 @@ if "girando" not in st.session_state:
 if "stop" not in st.session_state:
     st.session_state.stop = False
 
-# ---- CONTENEDOR DE IMAGEN Y BOTONES ----
+# ---- CONTENEDOR DE IMAGEN ----
 imagen_placeholder = st.empty()
 
 # ---- FUNCIÓN PARA MOSTRAR IMAGEN ACTUAL ----
@@ -116,39 +116,31 @@ def mostrar_imagen_actual():
     else:
         st.warning(f"⚠️ Imagen no encontrada: {ruta}")
 
-# ---- MOSTRAR IMAGEN SI NO ESTÁ GIRANDO ----
+# ---- SI NO ESTÁ GIRANDO, MOSTRAR IMAGEN Y BOTONES ----
 if not st.session_state.girando:
     mostrar_imagen_actual()
 
-
-    # Botones (solo visibles cuando NO está girando)
     col1, col2 = st.columns(2, gap="large")
-    
-with col1:
-    if st.button("🎯 Girar Ruleta", key="girar"):
-        st.session_state.girando = True
-        st.session_state.stop = False
-        st.rerun()
+    with col1:
+        if st.button("🎯 Girar Ruleta", key="girar"):
+            st.session_state.girando = True
+            st.session_state.stop = False
+            st.rerun()
 
-with col2:
-    if st.button("🛑 Detener", key="detener"):
-        st.session_state.stop = True
+    with col2:
+        if st.button("🛑 Detener", key="detener"):
+            st.session_state.stop = True
 
-# ---- EFECTO RULETA (con botón Detener funcional) ----
+# ---- EFECTO RULETA CON BOTÓN DETENER ----
 if st.session_state.girando:
     while not st.session_state.stop:
         st.session_state.insecto_actual = random.choice(insectos)
         mostrar_imagen_actual()
-        time.sleep(0.07)  # Ajusta la velocidad
+        time.sleep(0.07)
+
     st.session_state.girando = False
     st.session_state.stop = False
-    st.rerun()
-
-
-    # Al salir del bucle
-    st.session_state.girando = False
-    st.session_state.stop = False
-    st.rerun()
+    st.rerun()  # ✅ solo una vez aquí
 
 
 # -------- PREGUNTA --------
@@ -170,5 +162,5 @@ if st.button("🔄 Reiniciar"):
     st.session_state.insecto_actual = random.choice(insectos)
     st.session_state.girando = False
     st.session_state.stop = False
-    st.session_state.frame = 0
     mostrar_imagen_actual()
+
