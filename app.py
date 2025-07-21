@@ -122,7 +122,7 @@ col1, col2 = st.columns(2, gap="large")
 
 with col1:
 
-    if st.button("🎯 Girar Ruleta", key="girar") and not st.session_state.girando:
+    if st.button("🎯 Girar Ruleta", key="girar"):
         st.session_state.girando = True
         st.session_state.stop = False
         st.rerun()  # ✅ Start spinning loop
