@@ -113,12 +113,32 @@ ordenes = ["Blattodea", "Coleoptera", "Diptera", "Hemiptera", "Hymenoptera", "Le
 # ---- ESTADO ----
 if "girando" not in st.session_state:
     st.session_state.girando = False
+if "stop" not in st.session_state:
+    st.session_state.stop = False
 if "insecto_actual" not in st.session_state:
     st.session_state.insecto_actual = random.choice(insectos)
 
 # ---- CONTENEDOR DE IMAGEN ----
 imagen_placeholder = st.empty()
 
+# ---- Mostrar imagen ----
+def mostrar_imagen_actual():
+    ruta = st.session_state.insecto_actual["imagen"]
+    if os.path.exists(ruta):
+        img = Image.open(ruta)
+        imagen_placeholder.image(img, width=260)
+
+# ---- EFECTO RULETA ----
+if st.session_state.girando:
+    for _ in range(50):
+        if st.session_state.stop:
+            break
+        st.session_state.insecto_actual = random.choice(insectos)
+        mostrar_imagen_actual()
+        time.sleep(0.05)
+
+    st.session_state.girando = False
+    st.session_state.stop = False
 
 # ---- Mostrar imagen si no está girando ----
 if not st.session_state.girando:
@@ -130,23 +150,19 @@ with col1:
     if not st.session_state.girando:
         if st.button("🎯 Girar Ruleta"):
             st.session_state.girando = True
-            
-with col2:
-    if st.session_state.girando:
-        if st.button("🛑 Detener"):
-            st.session_state.girando = False
-            st.rerun()
 
+with col2:
+    if st.session_state.girando and not st.session_state.stop:
+        if st.button("🛑 Detener"):
+            st.session_state.stop = True
+            
 # ---- EFECTO RULETA ----
 if st.session_state.girando:
-    for _ in range(40):
+    for _ in range(25):
         st.session_state.insecto_actual = random.choice(insectos)
-        ruta = st.session_state.insecto_actual["imagen"]
-        if os.path.exists(ruta):
-            img = Image.open(ruta)
-            imagen_placeholder.image(img, width=250)
-        time.sleep(0.06)
-    st.rerun()
+        mostrar_imagen_actual()
+        time.sleep(0.05)
+    st.session_state.girando = False  # Stop automatically after spin
 
 
 # ---- PREGUNTA ----
@@ -167,4 +183,4 @@ if st.button("Comprobar"):
 if st.button("🔄 Reiniciar"):
     st.session_state.insecto_actual = random.choice(insectos)
     st.session_state.girando = False
-    st.rerun()
+    mostrar_imagen_actual()
