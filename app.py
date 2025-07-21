@@ -104,75 +104,45 @@ insectos = [
 
 ordenes = sorted(list(set(i["orden"] for i in insectos)))
 
-# -------- CONTENEDOR DE IMAGEN --------
+# ---- CONTENEDOR DE IMAGEN Y BOTONES ----
 imagen_placeholder = st.empty()
 
-def mostrar_imagen_actual():
-    ruta = st.session_state.insecto_actual.get("imagen", "")
-    if os.path.exists(ruta):
-        img = Image.open(ruta)
-        imagen_placeholder.image(img, width=260)
-    else:
-        imagen_placeholder.warning(f"⚠️ Imagen no encontrada: {ruta}")
+if not st.session_state.girando:
+    # Mostrar imagen fija
+    mostrar_imagen_actual()
 
-
-# ---- BOTONES DE RULETA (solo uno de cada uno) ----
-col1, col2 = st.columns(2, gap="large")
-
-with col1:
-    if not st.session_state.girando:
-        if st.button("🎯 Girar Ruleta", key="girar"):
+    # Botones (solo visibles cuando NO está girando)
+    col1, col2 = st.columns(2, gap="large")
+    with col1:
+        if st.button("🎯 Girar Ruleta"):
             st.session_state.girando = True
             st.session_state.stop = False
-            st.rerun()
+            st.rerun()  # inicia efecto ruleta
+    with col2:
+        st.button("🛑 Detener", disabled=True)
 
-with col2:
-    if st.session_state.girando:
-        if st.button("🛑 Detener", key="detener"):
+# ---- EFECTO RULETA (con botón Detener funcional) ----
+if st.session_state.girando:
+    col1, col2 = st.columns(2, gap="large")
+    with col1:
+        st.button("🎯 Girando...", disabled=True)
+    with col2:
+        if st.button("🛑 Detener"):
             st.session_state.stop = True
 
+    # Mostrar imágenes aleatorias hasta que se detenga
+    while not st.session_state.stop:
+        st.session_state.insecto_actual = random.choice(insectos)
+        ruta = st.session_state.insecto_actual["imagen"]
+        if os.path.exists(ruta):
+            img = Image.open(ruta)
+            imagen_placeholder.image(img, width=260)
+        time.sleep(0.07)
 
-
-# ---- EFECTO RULETA INTERACTIVO ----
-
-if not st.session_state.girando:
-    with st.container() as contenedor_visual:
-        mostrar_imagen_actual()
-        col1, col2 = st.columns(2, gap="large")
-
-        with col1:
-            if st.button("🎯 Girar Ruleta",  key="girar2"):
-                st.session_state.girando = True
-                st.session_state.stop = False
-                st.rerun()
-
-        with col2:
-            st.button("🛑 Detener", key="detener2", disabled=True)
-
-
-if st.session_state.girando:
-    with st.container() as contenedor_visual:
-        imagen_placeholder = st.empty()
-        col1, col2 = st.columns(2, gap="large")
-
-        with col1:
-            st.button("🎯 Girando...", disabled=True)
-
-        with col2:
-            if st.button("🛑 Detener"):
-                st.session_state.stop = True
-
-        while not st.session_state.stop:
-            st.session_state.insecto_actual = random.choice(insectos)
-            ruta = st.session_state.insecto_actual["imagen"]
-            if os.path.exists(ruta):
-                img = Image.open(ruta)
-                imagen_placeholder.image(img, width=260)
-            time.sleep(0.07)
-
-        st.session_state.girando = False
-        st.session_state.stop = False
-        st.rerun()
+    # Al salir del bucle
+    st.session_state.girando = False
+    st.session_state.stop = False
+    st.rerun()
 
 
 # -------- PREGUNTA --------
