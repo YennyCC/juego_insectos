@@ -73,7 +73,7 @@ st.markdown("""
     text-shadow: 2px 2px 4px #000000;
     margin-bottom: 2rem;
 '>
-    🐞 Adivina el insecto 🦋
+    🐞 Adivina el insecto 
 </h1>
 """, unsafe_allow_html=True)
 
