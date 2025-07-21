@@ -122,7 +122,7 @@ with col1:
     if st.button("🎯 Girar Ruleta") and not st.session_state.girando:
         st.session_state.girando = True
         st.session_state.stop = False
-        st.experimental_rerun()  # rerun to enter the spinning loop
+        st.rerun()  # rerun to enter the spinning loop
 
 with col2:
     if st.button("🛑 Detener") and st.session_state.girando:
@@ -136,7 +136,7 @@ if st.session_state.girando:
         time.sleep(0.07)  # adjust speed
     st.session_state.girando = False
     st.session_state.stop = False
-    st.experimental_rerun()  # refresh to exit spinning loop
+    st.rerun()  # refresh to exit spinning loop
 
 # ---- MOSTRAR IMAGEN FINAL SI NO ESTÁ GIRANDO ----
 if not st.session_state.girando:
