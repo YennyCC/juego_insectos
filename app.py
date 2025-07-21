@@ -116,20 +116,20 @@ def mostrar_imagen_actual():
         imagen_placeholder.warning(f"⚠️ Imagen no encontrada: {ruta}")
 
 
-
-# ---- BOTONES DE RULETA ----
+# ---- BOTONES DE RULETA (solo uno de cada uno) ----
 col1, col2 = st.columns(2, gap="large")
 
 with col1:
-
-    if st.button("🎯 Girar Ruleta", key="girar"):
-        st.session_state.girando = True
-        st.session_state.stop = False
-        st.rerun()  # ✅ Start spinning loop
+    if not st.session_state.girando:
+        if st.button("🎯 Girar Ruleta", key="girar"):
+            st.session_state.girando = True
+            st.session_state.stop = False
+            st.rerun()
 
 with col2:
-    if st.button("🛑 Detener", key="detener1"):
-        st.session_state.stop = True  # ✅ Con sangría
+    if st.session_state.girando:
+        if st.button("🛑 Detener", key="detener"):
+            st.session_state.stop = True
 
 
 
