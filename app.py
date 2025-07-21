@@ -77,16 +77,6 @@ st.markdown("""
 </h1>
 """, unsafe_allow_html=True)
 
-# -------- INICIALIZACIÓN DE ESTADO --------
-if "girando" not in st.session_state:
-    st.session_state.girando = False
-if "stop" not in st.session_state:
-    st.session_state.stop = False
-if "frame" not in st.session_state:
-    st.session_state.frame = 0
-if "insecto_actual" not in st.session_state:
-    st.session_state.insecto_actual = {}
-
 # Datos
 # Lista de insectos con sus rutas de imagen y órdenes
 insectos = [
@@ -107,19 +97,32 @@ ordenes = sorted(list(set(i["orden"] for i in insectos)))
 # ---- CONTENEDOR DE IMAGEN Y BOTONES ----
 imagen_placeholder = st.empty()
 
+# ---- INICIALIZAR ESTADOS NECESARIOS ----
+if "insecto_actual" not in st.session_state:
+    st.session_state.insecto_actual = random.choice(insectos)
+
+if "girando" not in st.session_state:
+    st.session_state.girando = False
+
+if "stop" not in st.session_state:
+    st.session_state.stop = False
+
 # ---- FUNCIÓN PARA MOSTRAR IMAGEN ACTUAL ----
 def mostrar_imagen_actual():
-    ruta = st.session_state.insecto_actual["imagen"]
-    if os.path.exists(ruta):
-        img = Image.open(ruta)
-        imagen_placeholder.image(img, width=260)
-    else:
-        st.warning(f"⚠️ Imagen no encontrada: {ruta}")
+    try:
+        ruta = st.session_state.insecto_actual["imagen"]
+        if os.path.exists(ruta):
+            img = Image.open(ruta)
+            imagen_placeholder.image(img, width=260)
+        else:
+            st.warning(f"⚠️ Imagen no encontrada: {ruta}")
+    except Exception as e:
+        st.error(f"❌ Error al mostrar imagen: {e}")
 
-
+# ---- MOSTRAR IMAGEN SI NO ESTÁ GIRANDO ----
 if not st.session_state.girando:
-    # Mostrar imagen fija
     mostrar_imagen_actual()
+
 
     # Botones (solo visibles cuando NO está girando)
     col1, col2 = st.columns(2, gap="large")
