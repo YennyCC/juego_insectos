@@ -127,8 +127,9 @@ with col1:
         st.rerun()  # ✅ Start spinning loop
 
 with col2:
-    if st.button("🛑 Detener") and st.session_state.girando:
-        st.session_state.stop = True
+    if st.button("🛑 Detener", key="detener1"):
+    st.session_state.stop = True
+
 
 # ---- EFECTO RULETA INTERACTIVO ----
 
@@ -144,7 +145,7 @@ if not st.session_state.girando:
                 st.rerun()
 
         with col2:
-            st.button("🛑 Detener", disabled=True)
+            st.button("🛑 Detener", key="detener2", disabled=True)
 
 
 if st.session_state.girando:
