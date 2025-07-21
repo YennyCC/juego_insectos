@@ -121,7 +121,8 @@ def mostrar_imagen_actual():
 col1, col2 = st.columns(2, gap="large")
 
 with col1:
-    if st.button("🎯 Girar Ruleta") and not st.session_state.girando:
+
+    if st.button("🎯 Girar Ruleta", key="girar") and not st.session_state.girando:
         st.session_state.girando = True
         st.session_state.stop = False
         st.rerun()  # ✅ Start spinning loop
@@ -140,7 +141,7 @@ if not st.session_state.girando:
         col1, col2 = st.columns(2, gap="large")
 
         with col1:
-            if st.button("🎯 Girar Ruleta"):
+            if st.button("🎯 Girar Ruleta",  key="girar2"):
                 st.session_state.girando = True
                 st.session_state.stop = False
                 st.rerun()
