@@ -128,7 +128,8 @@ with col1:
 
 with col2:
     if st.button("🛑 Detener", key="detener1"):
-    st.session_state.stop = True
+        st.session_state.stop = True  # ✅ Con sangría
+
 
 
 # ---- EFECTO RULETA INTERACTIVO ----
