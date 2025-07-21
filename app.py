@@ -115,11 +115,7 @@ def mostrar_imagen_actual():
     else:
         imagen_placeholder.warning(f"⚠️ Imagen no encontrada: {ruta}")
 
-# -------- MOSTRAR IMAGEN SI NO ESTÁ GIRANDO --------
-if not st.session_state.girando:
-    if not st.session_state.insecto_actual:
-        st.session_state.insecto_actual = random.choice(insectos)
-    mostrar_imagen_actual()
+
 
 # ---- BOTONES DE RULETA ----
 col1, col2 = st.columns(2, gap="large")
@@ -135,8 +131,24 @@ with col2:
         st.session_state.stop = True
 
 # ---- EFECTO RULETA INTERACTIVO ----
+
+if not st.session_state.girando:
+    with st.container() as contenedor_visual:
+        mostrar_imagen_actual()
+        col1, col2 = st.columns(2, gap="large")
+
+        with col1:
+            if st.button("🎯 Girar Ruleta"):
+                st.session_state.girando = True
+                st.session_state.stop = False
+                st.rerun()
+
+        with col2:
+            st.button("🛑 Detener", disabled=True)
+
+
 if st.session_state.girando:
-    with contenedor_visual:
+    with st.container() as contenedor_visual:
         imagen_placeholder = st.empty()
         col1, col2 = st.columns(2, gap="large")
 
@@ -154,6 +166,7 @@ if st.session_state.girando:
                 img = Image.open(ruta)
                 imagen_placeholder.image(img, width=260)
             time.sleep(0.07)
+
         st.session_state.girando = False
         st.session_state.stop = False
         st.rerun()
