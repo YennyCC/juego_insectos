@@ -107,6 +107,16 @@ ordenes = sorted(list(set(i["orden"] for i in insectos)))
 # ---- CONTENEDOR DE IMAGEN Y BOTONES ----
 imagen_placeholder = st.empty()
 
+# ---- FUNCIÓN PARA MOSTRAR IMAGEN ACTUAL ----
+def mostrar_imagen_actual():
+    ruta = st.session_state.insecto_actual["imagen"]
+    if os.path.exists(ruta):
+        img = Image.open(ruta)
+        imagen_placeholder.image(img, width=260)
+    else:
+        st.warning(f"⚠️ Imagen no encontrada: {ruta}")
+
+
 if not st.session_state.girando:
     # Mostrar imagen fija
     mostrar_imagen_actual()
