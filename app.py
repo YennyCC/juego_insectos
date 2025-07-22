@@ -207,6 +207,9 @@ def mostrar_imagen_actual():
     else:
         st.warning(f"⚠️ Imagen no encontrada: {ruta}")
 
+def seleccionar_insecto():
+    st.session_state.insecto_actual = random.choice(insectos)
+
 # ---- BOTONES SIEMPRE PRESENTES ----
 # Image and buttons together
 with st.container():
