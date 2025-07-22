@@ -47,34 +47,34 @@ st.markdown("""
     }
 
     /* Image container styling */
+div.stImage > img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Desktop: Smaller image */
+@media screen and (min-width: 768px) {
     div.stImage > img {
-        display: block;
-        margin: 0 auto;
-        border-radius: 12px;
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        max-width: 100%;
+        width: 120px; /* or 100px or even 80px if you want it smaller */
     }
+}
 
-    /* Desktop: Smaller image */
-    @media screen and (min-width: 768px) {
-        div.stImage > img {
-            width: 50px;
-        }
+/* Tablet */
+@media screen and (max-width: 767px) and (min-width: 481px) {
+    div.stImage > img {
+        width: 180px;
     }
+}
 
-    /* Tablet */
-    @media screen and (max-width: 767px) and (min-width: 481px) {
-        div.stImage > img {
-            width: 180px;
-        }
+/* Mobile */
+@media screen and (max-width: 480px) {
+    div.stImage > img {
+        width: 160px;
     }
+}
 
-    /* Mobile */
-    @media screen and (max-width: 480px) {
-        div.stImage > img {
-            width: 160px;
-        }
-    }
 
     /* Question text */
     .pregunta {
