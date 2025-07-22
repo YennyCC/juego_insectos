@@ -201,11 +201,11 @@ def mostrar_imagen():
 def seleccionar_insecto():
     st.session_state.insecto_actual = random.choice(insectos)
 
-# ---- INTERFAZ PRINCIPAL ----
-if not st.session_state.girando:
-    if not st.session_state.insecto_actual:
-        seleccionar_insecto()
-    mostrar_imagen()
+
+# Mostrar imagen actual
+imagen_placeholder = st.empty()
+img = Image.open(st.session_state.insecto_actual["imagen"])
+imagen_placeholder.image(img)
 
 # Contenedor de botones alineados
 st.markdown('<div class="boton-container">', unsafe_allow_html=True)
