@@ -43,42 +43,101 @@ set_background("fondo.jpg")
 
 # ---- CSS PERSONALIZADO ----
 st.markdown("""
-    <style>
+<style>
+/* Image sizing */
+div.stImage > img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    width: 200px;
+}
+
+    /* Title styling */
     h1 {
         text-align: center;
         color: white;
-        font-size: 2rem;
+        font-size: 2.2rem;
         font-family: "Comic Sans MS", cursive;
         text-shadow: 2px 2px 4px black;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
     }
 
+    /* Image container styling */
+div.stImage > img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* On very small screens */
+@media screen and (max-width: 480px) {
+    div.stImage > img {
+        width: 160px;
+    }
+}
+
+/* On large screens (desktops) */
+@media screen and (min-width: 768px) {
+    div.stImage > img {
+        width: 180px;
+    }
+}
+
+/* Container with image + buttons */
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+/* Button container below image */
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    width: 220px;
+    margin-top: 10px;
+}
+
+/* Adjust buttons for small screens */
+@media screen and (max-width: 480px) {
+    .button-row {
+        width: 180px;
+    }
+}
+
+    /* Question text */
     .pregunta {
         font-size: 22px;
         font-weight: bold;
         color: white;
-        text-align: center;
         margin: 1em 0;
+        text-align: center;
     }
 
-    div.stImage > img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 90%;
-        width: 220px;
-        border-radius: 12px;
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-    }
-
+    /* Radio options in white */
     div[data-baseweb="radio"] label {
         color: white !important;
         font-size: 16px;
     }
+
+    /* Responsive label size */
+    @media screen and (max-width: 480px) {
+        .pregunta {
+            font-size: 18px;
+        }
+
+        div[data-baseweb="radio"] label {
+            font-size: 14px;
+        }
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# ---- TÍTULO ----
 st.markdown("""
 <h1>
     🐞 Adivina el insecto 🦋
