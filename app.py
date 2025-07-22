@@ -276,5 +276,5 @@ if st.button("🔄 Reiniciar"):
     st.session_state.insecto_actual = random.choice(insectos)
     st.session_state.girando = False
     st.session_state.stop = False
-    st.session_state.historial: False
+    st.session_state.historial: ""
     mostrar_imagen_actual()
