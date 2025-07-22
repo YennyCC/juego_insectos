@@ -8,19 +8,6 @@ import os
 # ---- CONFIGURACIÓN INICIAL ----
 st.set_page_config(page_title="Adivina el insecto", layout="centered")
 
-# ---- ESTADOS INICIALES ----
-# ---- INICIALIZACIÓN DEL ESTADO ----
-if "girando" not in st.session_state:
-    st.session_state.girando = False
-if "stop" not in st.session_state:
-    st.session_state.stop = False
-if "puntos" not in st.session_state:
-    st.session_state.puntos = 0
-if "aciertos" not in st.session_state:
-    st.session_state.aciertos = 0
-if "historial" not in st.session_state:
-    st.session_state.historial = []
-
 # ---- FONDO PERSONALIZADO ----
 def set_background(image_file):
     with open(image_file, "rb") as f:
@@ -188,6 +175,25 @@ insectos = [
 
 ordenes = ["Blattodea", "Coleoptera", "Diptera", "Hemiptera", "Hymenoptera", "Lepidoptera", "Mantodea", "Odonata", "Orthoptera"]
 
+
+# ---- INICIALIZAR ESTADOS NECESARIOS ----
+if "insecto_actual" not in st.session_state:
+    st.session_state.insecto_actual = random.choice(insectos)
+
+if "girando" not in st.session_state:
+    st.session_state.girando = False
+
+if "stop" not in st.session_state:
+    st.session_state.stop = False
+
+if "puntos" not in st.session_state:
+    st.session_state.puntos = 0
+    
+if "aciertos" not in st.session_state:
+    st.session_state.aciertos = 0
+    
+if "historial" not in st.session_state:
+    st.session_state.historial = []
 
 # ---- FUNCIONES ----
 def mostrar_imagen():
