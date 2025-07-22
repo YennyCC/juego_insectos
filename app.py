@@ -82,16 +82,16 @@ st.markdown("""
     }
 
         /* Desktop: limit width */
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 480px) {
         div.stImage > img {
-            width: 260px;
+            width: 180px;
         }
     }
 
     /* Tablets */
-    @media screen and (max-width: 767px) and (min-width: 481px) {
+    @media screen and (max-width: 480px) and (min-width: 481px) {
         div.stImage > img {
-            width: 220px;
+            width: 180px;
         }
     }
 
