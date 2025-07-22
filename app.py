@@ -104,6 +104,12 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<h1>
+    🐞 Adivina el insecto 🦋
+</h1>
+""", unsafe_allow_html=True)
+
 
 # Datos
 # Lista de insectos con sus rutas de imagen y órdenes
