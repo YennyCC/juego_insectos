@@ -188,8 +188,6 @@ insectos = [
 
 ordenes = ["Blattodea", "Coleoptera", "Diptera", "Hemiptera", "Hymenoptera", "Lepidoptera", "Mantodea", "Odonata", "Orthoptera"]
 
-if "insecto_actual" not in st.session_state:
-    st.session_state.insecto_actual = random.choice(insectos)
 
 # ---- FUNCIONES ----
 def mostrar_imagen():
