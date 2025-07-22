@@ -108,7 +108,7 @@ div.stImage > img {
 
     /* Texto de opciones del radio en blanco */
     div[data-baseweb="radio"] label {
-        color: white !important;
+        color: white;
         font-size: 16px;
         padding: 4px 0;
     }
