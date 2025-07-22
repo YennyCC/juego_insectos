@@ -27,14 +27,13 @@ set_background("fondo.jpg")
 # ---- ESTILOS PERSONALIZADOS Y RESPONSIVOS ----
 st.markdown("""
     <style>
-    /* Título */
-    h1 {
-        text-align: center;
-        color: white;
-        font-size: 2.2rem;
-        font-family: "Comic Sans MS", cursive;
-        text-shadow: 2px 2px 4px black;
-        margin-bottom: 1rem;
+    div.stImage > img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        max-width: 100%;
     }
 
     /* Contenedor principal */
@@ -82,22 +81,24 @@ st.markdown("""
         padding: 4px 0;
     }
 
-    /* Responsive en móviles */
+        /* Desktop: limit width */
+    @media screen and (min-width: 768px) {
+        div.stImage > img {
+            width: 260px;
+        }
+    }
+
+    /* Tablets */
+    @media screen and (max-width: 767px) and (min-width: 481px) {
+        div.stImage > img {
+            width: 220px;
+        }
+    }
+
+    /* Mobile */
     @media screen and (max-width: 480px) {
-        h1 {
-            font-size: 1.8rem;
-        }
-
-        .pregunta {
-            font-size: 18px;
-        }
-
         div.stImage > img {
             width: 180px;
-        }
-
-        label {
-            font-size: 14px;
         }
     }
     </style>
