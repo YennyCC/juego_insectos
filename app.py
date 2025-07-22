@@ -214,11 +214,11 @@ orden_seleccionado = st.radio("", ordenes, key="orden_radio")
 if st.button("Comprobar"):
     actual = st.session_state.insecto_actual
     if orden_seleccionado == actual["orden"]:
-        st.success(f"✅ ¡Correcto! Es del Orden {actual['orden']} ({actual['orden']})")
+        st.success(f"✅ ¡Correcto! Es del Orden {actual['orden']}")
         st.session_state.puntos += 10
         st.session_state.aciertos += 1
     else:
-        st.error(f"❌ Incorrecto. Era del Orden {actual['orden']} ({actual['orden']})")
+        st.error(f"❌ Incorrecto. Era del Orden {actual['orden']}")
     st.session_state.historial.append((actual['orden'], orden_seleccionado))
 
 # ---- RESULTADOS ----
