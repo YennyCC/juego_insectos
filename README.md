@@ -4,7 +4,7 @@ Este es un juego web interactivo hecho en Python con Streamlit, diseñado para q
 
 ---
 
-## 🎯 ¿Cómo funciona?
+## ¿Cómo funciona?
 
 - Presiona **"🎯 Girar Ruleta"** para mostrar insectos aleatorios en forma de silueta.
 - Presiona **"🛑 Detener"** cuando desees detener el giro.
@@ -13,7 +13,7 @@ Este es un juego web interactivo hecho en Python con Streamlit, diseñado para q
 
 ---
 
-## 🖼️ Tecnologías usadas
+## Tecnologías usadas
 
 - [Python 3.9+](https://www.python.org/)
 - [Streamlit](https://streamlit.io/)
@@ -22,7 +22,7 @@ Este es un juego web interactivo hecho en Python con Streamlit, diseñado para q
 
 ---
 
-## 🚀 Cómo ejecutarlo localmente
+## Cómo ejecutarlo localmente
 
 1. Clona el repositorio:
 ```bash
@@ -42,13 +42,13 @@ streamlit run app.py
 
 ---
 
-## 🌐 Versión en línea
+## Versión en línea
 
 📍 https://insectos.streamlit.app/
 
 ---
 
-## 📂 Estructura del proyecto
+## Estructura del proyecto
 
 ```
 📁 siluetas/         # Siluetas PNG de insectos
@@ -60,7 +60,7 @@ streamlit run app.py
 
 ---
 
-## ✨ Créditos y Licencia
+## Créditos y Licencia
 
 Este proyecto fue desarrollado por **YennyCC** con fines educativos y de divulgación.  
 Puedes adaptarlo, compartirlo o expandirlo con más insectos, niveles, idiomas o estilos visuales.
