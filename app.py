@@ -240,6 +240,10 @@ if st.session_state.girando:
     st.session_state.stop = False
     st.rerun()  # refresh to exit spinning loop
 
+# ---- MOSTRAR IMAGEN FINAL SI NO ESTÁ GIRANDO ----
+if not st.session_state.girando:
+    mostrar_imagen_actual()
+
 
 # ---- PREGUNTA Y RESPUESTA ----
 st.markdown('<div class="pregunta">¿A qué orden pertenece este insecto?</div>', unsafe_allow_html=True)
