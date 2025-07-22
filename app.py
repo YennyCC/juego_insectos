@@ -24,44 +24,91 @@ def set_background(image_file):
 
 set_background("fondo.jpg")
 
-# -------- ESTILOS PERSONALIZADOS --------
+# ---- ESTILOS PERSONALIZADOS Y RESPONSIVOS ----
 st.markdown("""
     <style>
+    html, body, .stApp {
+        max-width: 100%;
+        overflow-x: hidden;
+        padding: 0;
+        margin: 0;
+        color: white !important;
+    }
+
+    /* Contenedor principal */
     .block-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        padding: 1rem;
     }
 
+    /* Título */
+    h1 {
+        font-size: 2.5rem;
+        text-align: center;
+        color: white;
+        text-shadow: 2px 2px 4px black;
+    }
+
+    /* Texto de pregunta */
     .pregunta {
-        font-size: 28px;
+        font-size: 22px;
         font-weight: bold;
         color: white;
-        margin: 1em 0 1em 0;
+        margin: 1em 0;
+        text-align: center;
     }
 
-    div[data-baseweb="radio"] > div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    /* Imagen del insecto */
+    div.stImage > img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100%;
+        width: 220px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
     }
 
+    /* Botones */
     button[kind="primary"] {
         display: block;
         margin: 0.5em auto;
     }
 
-    div.stImage > img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 260px;
-        border-radius: 12px;
-        box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+    /* Opciones radio centradas y en blanco */
+    div[data-baseweb="radio"] {
+        color: white;
+    }
+    div[data-baseweb="radio"] label {
+        color: white !important;
+        font-size: 16px;
+        padding: 4px 0;
+    }
+
+    /* Responsive en móviles */
+    @media screen and (max-width: 480px) {
+        h1 {
+            font-size: 2rem;
+        }
+
+        .pregunta {
+            font-size: 18px;
+        }
+
+        div.stImage > img {
+            width: 180px;
+        }
+
+        label {
+            font-size: 14px;
+        }
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 # -------- TÍTULO --------
 st.markdown("""
