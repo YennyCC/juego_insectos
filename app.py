@@ -50,7 +50,8 @@ div.stImage > img {
     margin: 0 auto;
     border-radius: 12px;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-    width: 200px;
+    width: 260px;
+    max-width: 100%;
 }
 
     /* Title styling */
@@ -82,7 +83,7 @@ div.stImage > img {
 /* On large screens (desktops) */
 @media screen and (min-width: 768px) {
     div.stImage > img {
-        width: 180px;
+        width: 260px;
     }
 }
 
@@ -164,7 +165,7 @@ def mostrar_imagen():
     ruta = st.session_state.insecto_actual.get("imagen")
     if ruta and os.path.exists(ruta):
         img = Image.open(ruta)
-        st.image(img, width=220)
+        st.image(img, width=260)
     else:
         st.warning("⚠️ Imagen no encontrada")
 
@@ -202,7 +203,7 @@ else:
         ruta = st.session_state.insecto_actual["imagen"]
         if os.path.exists(ruta):
             img = Image.open(ruta)
-            imagen_placeholder.image(img, width=220)
+            imagen_placeholder.image(img, width=260)
         time.sleep(0.07)
     st.session_state.girando = False
     st.rerun()
