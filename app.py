@@ -274,15 +274,9 @@ if st.session_state.historial:
     for i, (orden, respuesta) in enumerate(reversed(st.session_state.historial[-5:]), 1):
         st.markdown(f"{i}. Dijiste *{respuesta}*, era *{orden}*.")
 
+# -------- REINICIAR --------
 if st.button("🔄 Reiniciar"):
-    # Elegir un nuevo insecto
-    seleccionar_insecto()
-
-    # Resetear todos los estados necesarios
+    st.session_state.insecto_actual = random.choice(insectos)
     st.session_state.girando = False
     st.session_state.stop = False
-    st.session_state.intentos = 0
-    st.session_state.aciertos = 0
-    st.session_state.resultado = ""
-    st.session_state.orden_radio = None  # Reinicia la selección del radio
-    st.rerun()
+    mostrar_imagen_actual()
