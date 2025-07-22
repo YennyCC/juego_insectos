@@ -219,7 +219,7 @@ if st.button("Comprobar"):
         st.session_state.aciertos += 1
     else:
         st.error(f"❌ Incorrecto. Era del Orden {actual['orden']} ({actual['orden']})")
-    st.session_state.historial.append((actual['nombre'], orden_seleccionado))
+    st.session_state.historial.append((actual['orden'], orden_seleccionado))
 
 # ---- RESULTADOS ----
 st.markdown("""
@@ -230,8 +230,8 @@ st.markdown("""
 
 if st.session_state.historial:
     st.markdown("### Historial de respuestas:")
-    for i, (nombre, respuesta) in enumerate(reversed(st.session_state.historial[-5:]), 1):
-        st.markdown(f"{i}. Dijiste *{respuesta}*, era *{nombre}*.")
+    for i, (orden, respuesta) in enumerate(reversed(st.session_state.historial[-5:]), 1):
+        st.markdown(f"{i}. Dijiste *{respuesta}*, era *{orden}*.")
 
 if st.button("🔄 Reiniciar"):
     seleccionar_insecto()
