@@ -37,6 +37,7 @@ st.markdown("""
     🐞 Adivina el insecto 🦋
 </h1>
 """, unsafe_allow_html=True)
+
 @media screen and (max-width: 480px) {
     h1 {
         font-size: 1.8rem;
