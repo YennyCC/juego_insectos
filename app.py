@@ -136,6 +136,35 @@ div.stImage > img {
             font-size: 14px;
         }
     }
+
+    /* Centrar todo el contenido */
+.block-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Imagen más grande y centrada */
+div.stImage {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+div.stImage img {
+    max-width: 260px;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+
+/* Centrar botones debajo de la imagen */
+.boton-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
     </style>
 """, unsafe_allow_html=True)
 
@@ -178,35 +207,23 @@ if not st.session_state.girando:
         seleccionar_insecto()
     mostrar_imagen()
 
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("🎯 Girar Ruleta"):
-            st.session_state.girando = True
-            st.session_state.stop = False
-            st.rerun()
+    # Mostrar imagen actual
+imagen_placeholder = st.empty()
+img = Image.open(st.session_state.insecto_actual["imagen"])
+imagen_placeholder.image(img)
 
-    with col2:
-        st.button("🛑 Detener", disabled=True)
-else:
-    imagen_placeholder = st.empty()
-    col1, col2 = st.columns(2)
-    with col1:
-        st.button("🎯 Girando...", disabled=True)
-    with col2:
-        if st.button("🛑 Detener"):
-            st.session_state.stop = True
-
-    for _ in range(40):
-        if st.session_state.stop:
-            break
-        st.session_state.insecto_actual = random.choice(insectos)
-        ruta = st.session_state.insecto_actual["imagen"]
-        if os.path.exists(ruta):
-            img = Image.open(ruta)
-            imagen_placeholder.image(img, width=260)
-        time.sleep(0.07)
-    st.session_state.girando = False
-    st.rerun()
+# Contenedor de botones alineados
+st.markdown('<div class="boton-container">', unsafe_allow_html=True)
+col1, col2 = st.columns([1, 1])
+with col1:
+    if st.button("🎯 Girar Ruleta", key="girar"):
+        st.session_state.girando = True
+        st.session_state.stop = False
+        st.rerun()
+with col2:
+    if st.button("🛑 Detener", key="detener", disabled=not st.session_state.girando):
+        st.session_state.stop = True
+st.markdown('</div>', unsafe_allow_html=True)
 
 # ---- PREGUNTA Y RESPUESTA ----
 st.markdown('<div class="pregunta">¿A qué orden pertenece este insecto?</div>', unsafe_allow_html=True)
