@@ -195,36 +195,51 @@ if "aciertos" not in st.session_state:
 if "historial" not in st.session_state:
     st.session_state.historial = []
 
-# ---- FUNCIONES ----
-def mostrar_imagen():
-    ruta = st.session_state.insecto_actual.get("imagen")
-    if ruta and os.path.exists(ruta):
+# ---- CONTENEDOR DE IMAGEN ----
+imagen_placeholder = st.empty()
+
+# ---- FUNCIÓN PARA MOSTRAR IMAGEN ACTUAL ----
+def mostrar_imagen_actual():
+    ruta = st.session_state.insecto_actual["imagen"]
+    if os.path.exists(ruta):
         img = Image.open(ruta)
-        st.image(img, width=260)
+        imagen_placeholder.image(img, use_container_width=False)
     else:
-        st.warning("⚠️ Imagen no encontrada")
+        st.warning(f"⚠️ Imagen no encontrada: {ruta}")
 
-def seleccionar_insecto():
-    st.session_state.insecto_actual = random.choice(insectos)
+# ---- BOTONES SIEMPRE PRESENTES ----
+# Image and buttons together
+with st.container():
+    st.markdown('<div class="image-container">', unsafe_allow_html=True)
+    imagen_placeholder = st.empty()
+    st.markdown('<div class="button-row">', unsafe_allow_html=True)
 
-# ---- INTERFAZ PRINCIPAL ----
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        if st.button("🎯 Girar Ruleta", key="girar"):
+            st.session_state.girando = True
+            st.session_state.stop = False
+            st.rerun()
+    with col2:
+        if st.session_state.girando and st.button("🛑 Detener", key="detener"):
+            st.session_state.stop = True
+
+    st.markdown('</div></div>', unsafe_allow_html=True)
+
+
+# ---- RULETA SPINNING ----
+if st.session_state.girando:
+    while not st.session_state.stop:
+        st.session_state.insecto_actual = random.choice(insectos)
+        mostrar_imagen_actual()
+        time.sleep(0.07)  # adjust speed
+    st.session_state.girando = False
+    st.session_state.stop = False
+    st.rerun()  # refresh to exit spinning loop
+
+# ---- MOSTRAR IMAGEN FINAL SI NO ESTÁ GIRANDO ----
 if not st.session_state.girando:
-    if not st.session_state.insecto_actual:
-        seleccionar_insecto()
-    mostrar_imagen()
-
-# Contenedor de botones alineados
-st.markdown('<div class="boton-container">', unsafe_allow_html=True)
-col1, col2 = st.columns([1, 1])
-with col1:
-    if st.button("🎯 Girar Ruleta", key="girar"):
-        st.session_state.girando = True
-        st.session_state.stop = False
-        st.rerun()
-with col2:
-    if st.button("🛑 Detener", key="detener", disabled=not st.session_state.girando):
-        st.session_state.stop = True
-st.markdown('</div>', unsafe_allow_html=True)
+    mostrar_imagen_actual()
 
 # ---- PREGUNTA Y RESPUESTA ----
 st.markdown('<div class="pregunta">¿A qué orden pertenece este insecto?</div>', unsafe_allow_html=True)
