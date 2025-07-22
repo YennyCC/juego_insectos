@@ -26,24 +26,30 @@ set_background("fondo.jpg")
 
 # ---- ESTILOS PERSONALIZADOS Y RESPONSIVOS ----
 st.markdown("""
-<h1 style='
-    text-align: center;
-    color: white;
-    font-size: 2.2rem;
-    font-family: "Comic Sans MS", cursive;
-    text-shadow: 2px 2px 4px black;
-    margin-bottom: 1rem;
-'>
+    <style>
+    h1 {
+        text-align: center;
+        color: white;
+        font-size: 2.2rem;
+        font-family: "Comic Sans MS", cursive;
+        text-shadow: 2px 2px 4px black;
+        margin-bottom: 1rem;
+    }
+
+    @media screen and (max-width: 480px) {
+        h1 {
+            font-size: 1.8rem;
+        }
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<h1>
     🐞 Adivina el insecto 🦋
 </h1>
 """, unsafe_allow_html=True)
 
-/* En celulares, reducir más */
-@media screen and (max-width: 480px) {
-    h1 {
-        font-size: 1.8rem;
-    }
-}
 
     /* Contenedor principal */
     .block-container {
