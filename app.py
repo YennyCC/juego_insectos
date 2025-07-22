@@ -26,14 +26,15 @@ set_background("fondo.jpg")
 
 # ---- ESTILOS PERSONALIZADOS Y RESPONSIVOS ----
 st.markdown("""
-    <style>
-    /* Global body alignment */
-    .block-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem;
-    }
+<style>
+/* Image sizing */
+div.stImage > img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    width: 200px;
+}
 
     /* Title styling */
     h1 {
@@ -54,27 +55,43 @@ div.stImage > img {
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
-/* Desktop: Smaller image */
-@media screen and (min-width: 768px) {
-    div.stImage > img {
-        width: 120px; /* or 100px or even 80px if you want it smaller */
-    }
-}
-
-/* Tablet */
-@media screen and (max-width: 767px) and (min-width: 481px) {
-    div.stImage > img {
-        width: 180px;
-    }
-}
-
-/* Mobile */
+/* On very small screens */
 @media screen and (max-width: 480px) {
     div.stImage > img {
         width: 160px;
     }
 }
 
+/* On large screens (desktops) */
+@media screen and (min-width: 768px) {
+    div.stImage > img {
+        width: 180px;
+    }
+}
+
+/* Container with image + buttons */
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+/* Button container below image */
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    width: 220px;
+    margin-top: 10px;
+}
+
+/* Adjust buttons for small screens */
+@media screen and (max-width: 480px) {
+    .button-row {
+        width: 180px;
+    }
+}
 
     /* Question text */
     .pregunta {
