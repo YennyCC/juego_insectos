@@ -168,16 +168,24 @@ def mostrar_imagen_actual():
         st.warning(f"⚠️ Imagen no encontrada: {ruta}")
 
 # ---- BOTONES SIEMPRE PRESENTES ----
-col1, col2 = st.columns(2, gap="large")
-with col1:
-    if st.button("🎯 Girar Ruleta") and not st.session_state.girando:
-        st.session_state.girando = True
-        st.session_state.stop = False
-        st.rerun()  # rerun to enter the spinning loop
+# Image and buttons together
+with st.container():
+    st.markdown('<div class="image-container">', unsafe_allow_html=True)
+    imagen_placeholder = st.empty()
+    st.markdown('<div class="button-row">', unsafe_allow_html=True)
 
-with col2:
-    if st.button("🛑 Detener") and st.session_state.girando:
-        st.session_state.stop = True
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        if st.button("🎯 Girar Ruleta", key="girar"):
+            st.session_state.girando = True
+            st.session_state.stop = False
+            st.rerun()
+    with col2:
+        if st.session_state.girando and st.button("🛑 Detener", key="detener"):
+            st.session_state.stop = True
+
+    st.markdown('</div></div>', unsafe_allow_html=True)
+
 
 # ---- RULETA SPINNING ----
 if st.session_state.girando:
