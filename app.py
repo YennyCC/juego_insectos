@@ -285,7 +285,6 @@ if st.button("🔄 Reiniciar"):
     st.session_state.puntos = 0
     st.session_state.aciertos = 0
     st.session_state.historial = []
-    st.session_state.orden_radio = None
     st.rerun()
 
 
