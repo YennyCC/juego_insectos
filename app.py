@@ -9,8 +9,9 @@ import os
 st.set_page_config(page_title="Adivina el insecto", layout="centered")
 
 # ---- ESTADOS INICIALES ----
+# ---- INICIALIZACIÓN DEL ESTADO ----
 if "insecto_actual" not in st.session_state:
-    st.session_state.insecto_actual = {}
+    st.session_state.insecto_actual = random.choice(insectos)
 if "girando" not in st.session_state:
     st.session_state.girando = False
 if "stop" not in st.session_state:
