@@ -1,6 +1,6 @@
 # 🐞 Adivina el Insecto – Juego Educativo con Streamlit
 
-Este es un juego web interactivo hecho en Python con Streamlit, diseñado para que niños, niñas (y adultos curiosos) puedan aprender a identificar insectos según su orden taxonómico observando sus siluetas.
+Este es un juego web interactivo hecho en Python con Streamlit, diseñado para que niñas, niños (y adultos curiosos) puedan aprender a identificar insectos según su orden taxonómico observando sus siluetas.
 
 ---
 
