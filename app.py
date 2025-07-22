@@ -195,6 +195,10 @@ if "aciertos" not in st.session_state:
 if "historial" not in st.session_state:
     st.session_state.historial = []
 
+if "resultado" not in st.session_state:
+    st.session_state.resultado = ""
+
+
 # ---- CONTENEDOR DE IMAGEN ----
 imagen_placeholder = st.empty()
 
@@ -252,12 +256,14 @@ orden_seleccionado = st.radio("", ordenes, key="orden_radio")
 if st.button("Comprobar"):
     actual = st.session_state.insecto_actual
     if orden_seleccionado == actual["orden"]:
-        st.success(f"✅ ¡Correcto! Es del Orden {actual['orden']}")
-        st.session_state.puntos += 10
+        st.session_state.resultado = f"<div style='color:lime; font-weight:bold;'>✅ ¡Correcto! Es un {actual['nombre']} ({actual['orden']})</div>"
         st.session_state.aciertos += 1
     else:
-        st.error(f"❌ Incorrecto. Era del Orden {actual['orden']}")
-    st.session_state.historial.append((actual['orden'], orden_seleccionado))
+        st.session_state.resultado = f"<div style='color:red; font-weight:bold;'>❌ Incorrecto. Era un {actual['nombre']} ({actual['orden']})</div>"
+    st.session_state.intentos += 1
+
+if st.session_state.resultado:
+    st.markdown(st.session_state.resultado, unsafe_allow_html=True)
 
 # ---- RESULTADOS ----
 st.markdown("""
@@ -271,10 +277,13 @@ if st.session_state.historial:
     for i, (orden, respuesta) in enumerate(reversed(st.session_state.historial[-5:]), 1):
         st.markdown(f"{i}. Dijiste *{respuesta}*, era *{orden}*.")
 
-# -------- REINICIAR --------
 if st.button("🔄 Reiniciar"):
     st.session_state.insecto_actual = random.choice(insectos)
     st.session_state.girando = False
     st.session_state.stop = False
-    st.session_state.historial: ""
-    mostrar_imagen_actual()
+    st.session_state.intentos = 0
+    st.session_state.aciertos = 0
+    st.session_state.resultado = ""
+    st.session_state.orden_radio = None
+    st.rerun()
+
