@@ -26,14 +26,22 @@ set_background("fondo.jpg")
 
 # ---- ESTILOS PERSONALIZADOS Y RESPONSIVOS ----
 st.markdown("""
-    <style>
-    html, body, .stApp {
-        max-width: 100%;
-        overflow-x: hidden;
-        padding: 0;
-        margin: 0;
-        color: white !important;
+<h1 style='
+    text-align: center;
+    color: white;
+    font-size: 2.2rem;
+    font-family: "Comic Sans MS", cursive;
+    text-shadow: 2px 2px 4px black;
+    margin-bottom: 1rem;
+'>
+    🐞 Adivina el insecto 🦋
+</h1>
+""", unsafe_allow_html=True)
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
     }
+}
 
     /* Contenedor principal */
     .block-container {
@@ -61,16 +69,23 @@ st.markdown("""
         text-align: center;
     }
 
-    /* Imagen del insecto */
     div.stImage > img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 100%;
-        width: 220px;
-        border-radius: 12px;
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    width: 220px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* En celulares, reducir más */
+@media screen and (max-width: 480px) {
+    div.stImage > img {
+        width: 180px;
     }
+}
+
 
     /* Botones */
     button[kind="primary"] {
@@ -159,7 +174,7 @@ def mostrar_imagen_actual():
     ruta = st.session_state.insecto_actual["imagen"]
     if os.path.exists(ruta):
         img = Image.open(ruta)
-        imagen_placeholder.image(img, use_container_width=False)
+       imagen_placeholder.image(img, use_container_width=False)
     else:
         st.warning(f"⚠️ Imagen no encontrada: {ruta}")
 
