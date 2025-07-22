@@ -106,10 +106,18 @@ div.stImage > img {
         text-align: center;
     }
 
-    /* Radio options in white */
+    /* Texto de opciones del radio en blanco */
     div[data-baseweb="radio"] label {
         color: white !important;
         font-size: 16px;
+        padding: 4px 0;
+    }
+
+    /* Alineación centrada */
+    div[data-baseweb="radio"] {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     /* Responsive label size */
