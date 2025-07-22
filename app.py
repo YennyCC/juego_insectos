@@ -52,7 +52,7 @@ st.markdown("""
         margin: 0 auto;
         border-radius: 12px;
         box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        max-width: 100%;
+        max-width: 50%;
     }
 
     /* Desktop: Smaller image */
