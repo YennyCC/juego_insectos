@@ -27,69 +27,43 @@ set_background("fondo.jpg")
 # ---- ESTILOS PERSONALIZADOS Y RESPONSIVOS ----
 st.markdown("""
     <style>
-    div.stImage > img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 12px;
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        max-width: 100%;
-    }
-
-    /* Contenedor principal */
+    /* Global body alignment */
     .block-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         padding: 1rem;
     }
 
-    /* Texto de pregunta */
-    .pregunta {
-        font-size: 22px;
-        font-weight: bold;
-        color: white;
-        margin: 1em 0;
+    /* Title styling */
+    h1 {
         text-align: center;
+        color: white;
+        font-size: 2.2rem;
+        font-family: "Comic Sans MS", cursive;
+        text-shadow: 2px 2px 4px black;
+        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
     }
 
-    /* Imagen del insecto */
+    /* Image container styling */
     div.stImage > img {
         display: block;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 100%;
-        width: 220px;
+        margin: 0 auto;
         border-radius: 12px;
         box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        max-width: 100%;
     }
 
-    /* Botones */
-    button[kind="primary"] {
-        display: block;
-        margin: 0.5em auto;
-    }
-
-    /* Opciones radio centradas y en blanco */
-    div[data-baseweb="radio"] {
-        color: white;
-    }
-    div[data-baseweb="radio"] label {
-        color: white !important;
-        font-size: 16px;
-        padding: 4px 0;
-    }
-
-        /* Desktop: limit width */
-    @media screen and (min-width: 200px) {
+    /* Desktop: Smaller image */
+    @media screen and (min-width: 768px) {
         div.stImage > img {
-            width: 50px;
+            width: 150px;
         }
     }
 
-    /* Tablets */
-    @media screen and (max-width: 480px) and (min-width: 481px) {
+    /* Tablet */
+    @media screen and (max-width: 767px) and (min-width: 481px) {
         div.stImage > img {
             width: 180px;
         }
@@ -98,17 +72,38 @@ st.markdown("""
     /* Mobile */
     @media screen and (max-width: 480px) {
         div.stImage > img {
-            width: 180px;
+            width: 160px;
+        }
+    }
+
+    /* Question text */
+    .pregunta {
+        font-size: 22px;
+        font-weight: bold;
+        color: white;
+        margin: 1em 0;
+        text-align: center;
+    }
+
+    /* Radio options in white */
+    div[data-baseweb="radio"] label {
+        color: white !important;
+        font-size: 16px;
+    }
+
+    /* Responsive label size */
+    @media screen and (max-width: 480px) {
+        .pregunta {
+            font-size: 18px;
+        }
+
+        div[data-baseweb="radio"] label {
+            font-size: 14px;
         }
     }
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<h1>
-    🐞 Adivina el insecto 🦋
-</h1>
-""", unsafe_allow_html=True)
 
 # Datos
 # Lista de insectos con sus rutas de imagen y órdenes
