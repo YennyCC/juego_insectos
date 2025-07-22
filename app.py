@@ -82,9 +82,9 @@ st.markdown("""
     }
 
         /* Desktop: limit width */
-    @media screen and (min-width: 480px) {
+    @media screen and (min-width: 300px) {
         div.stImage > img {
-            width: 180px;
+            width: 100px;
         }
     }
 
