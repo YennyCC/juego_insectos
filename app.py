@@ -38,6 +38,7 @@ st.markdown("""
 </h1>
 """, unsafe_allow_html=True)
 
+/* En celulares, reducir más */
 @media screen and (max-width: 480px) {
     h1 {
         font-size: 1.8rem;
