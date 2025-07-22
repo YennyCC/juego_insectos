@@ -170,15 +170,15 @@ st.markdown("""
 
 # ---- DATOS ----
 insectos = [
-    {"nombre": "Mariposa", "orden": "Lepidoptera", "imagen": "siluetas/mariposa.png"},
-    {"nombre": "Escarabajo", "orden": "Coleoptera", "imagen": "siluetas/escarabajo.png"},
-    {"nombre": "Abeja", "orden": "Hymenoptera", "imagen": "siluetas/abeja.png"},
-    {"nombre": "Libélula", "orden": "Odonata", "imagen": "siluetas/libelula.png"},
-    {"nombre": "Chinche", "orden": "Hemiptera", "imagen": "siluetas/chinche.png"},
-    {"nombre": "Mosquito", "orden": "Diptera", "imagen": "siluetas/mosquito.png"},
-    {"nombre": "Saltamontes", "orden": "Orthoptera", "imagen": "siluetas/saltamontes.png"},
-    {"nombre": "Cucaracha", "orden": "Blattodea", "imagen": "siluetas/cucaracha.png"},
-    {"nombre": "Mantis", "orden": "Mantodea", "imagen": "siluetas/mantis.png"}
+    {"nombre": "mariposa", "orden": "Lepidoptera", "imagen": "siluetas/mariposa.png"},
+    {"nombre": "escarabajo", "orden": "Coleoptera", "imagen": "siluetas/escarabajo.png"},
+    {"nombre": "abeja", "orden": "Hymenoptera", "imagen": "siluetas/abeja.png"},
+    {"nombre": "libélula", "orden": "Odonata", "imagen": "siluetas/libelula.png"},
+    {"nombre": "chinche", "orden": "Hemiptera", "imagen": "siluetas/chinche.png"},
+    {"nombre": "mosquito", "orden": "Diptera", "imagen": "siluetas/mosquito.png"},
+    {"nombre": "saltamontes", "orden": "Orthoptera", "imagen": "siluetas/saltamontes.png"},
+    {"nombre": "cucaracha", "orden": "Blattodea", "imagen": "siluetas/cucaracha.png"},
+    {"nombre": "mantis", "orden": "Mantodea", "imagen": "siluetas/mantis.png"}
 ]
 
 ordenes = ["Blattodea", "Coleoptera", "Diptera", "Hemiptera", "Hymenoptera", "Lepidoptera", "Mantodea", "Odonata", "Orthoptera"]
@@ -261,19 +261,20 @@ if not st.session_state.girando:
 st.markdown('<div class="pregunta">¿A qué orden pertenece este insecto?</div>', unsafe_allow_html=True)
 orden_seleccionado = st.radio("", ordenes, key="orden_radio")
 
-
+# -------- COMPROBAR --------
 if st.button("Comprobar"):
     actual = st.session_state.insecto_actual
+    femenino = ["cucaracha", "abeja", "mariposa", "mantis", "libélula"]
+
+    articulo = "una" if actual["nombre"].lower() in femenino else "un"
+    
     if orden_seleccionado == actual["orden"]:
-        st.success(f"✅ ¡Correcto! Es un {actual['nombre']} ({actual['orden']})")
-        st.session_state.puntos += 1
-        st.session_state.aciertos += 1
+        st.success(f"✅ ¡Correcto! Es {articulo} {actual['nombre']} ({actual['orden']})")
     else:
-        st.error(f"❌ Incorrecto. Era un {actual['nombre']} ({actual['orden']})")
-    # Agregar al historial
+        st.error(f"❌ Incorrecto. Era {articulo} {actual['nombre']} ({actual['orden']})")
+
+ # Agregar al historial
     st.session_state.historial.append((actual["orden"], orden_seleccionado))
-
-
 # ---- RESULTADOS ----
 st.markdown("""
 ---
