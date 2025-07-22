@@ -27,6 +27,7 @@ set_background("fondo.jpg")
 # ---- ESTILOS PERSONALIZADOS Y RESPONSIVOS ----
 st.markdown("""
     <style>
+    /* Título */
     h1 {
         text-align: center;
         color: white;
@@ -36,21 +37,6 @@ st.markdown("""
         margin-bottom: 1rem;
     }
 
-    @media screen and (max-width: 480px) {
-        h1 {
-            font-size: 1.8rem;
-        }
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<h1>
-    🐞 Adivina el insecto 🦋
-</h1>
-""", unsafe_allow_html=True)
-
-
     /* Contenedor principal */
     .block-container {
         display: flex;
@@ -58,14 +44,6 @@ st.markdown("""
         align-items: center;
         justify-content: center;
         padding: 1rem;
-    }
-
-    /* Título */
-    h1 {
-        font-size: 2.5rem;
-        text-align: center;
-        color: white;
-        text-shadow: 2px 2px 4px black;
     }
 
     /* Texto de pregunta */
@@ -77,23 +55,16 @@ st.markdown("""
         text-align: center;
     }
 
+    /* Imagen del insecto */
     div.stImage > img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 100%;
-    width: 220px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-}
-
-/* En celulares, reducir más */
-@media screen and (max-width: 480px) {
-    div.stImage > img {
-        width: 180px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100%;
+        width: 220px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
     }
-}
-
 
     /* Botones */
     button[kind="primary"] {
@@ -114,7 +85,7 @@ st.markdown("""
     /* Responsive en móviles */
     @media screen and (max-width: 480px) {
         h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
 
         .pregunta {
@@ -132,18 +103,9 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
-# -------- TÍTULO --------
 st.markdown("""
-<h1 style='
-    text-align: center;
-    color: #ffffff;
-    font-size: 3rem;
-    font-family: "Comic Sans MS", cursive;
-    text-shadow: 2px 2px 4px #000000;
-    margin-bottom: 2rem;
-'>
-    🐞 Adivina el insecto 
+<h1>
+    🐞 Adivina el insecto 🦋
 </h1>
 """, unsafe_allow_html=True)
 
