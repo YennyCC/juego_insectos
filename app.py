@@ -278,4 +278,14 @@ if st.session_state.historial:
     for i, (orden, respuesta) in enumerate(reversed(st.session_state.historial[-5:]), 1):
         st.markdown(f"{i}. Dijiste *{respuesta}*, era *{orden}*.")
 
+if st.button("🔄 Reiniciar"):
+    st.session_state.insecto_actual = random.choice(insectos)
+    st.session_state.girando = False
+    st.session_state.stop = False
+    st.session_state.puntos = 0
+    st.session_state.aciertos = 0
+    st.session_state.historial = []
+    st.session_state.orden_radio = None
+    st.rerun()
+
 
