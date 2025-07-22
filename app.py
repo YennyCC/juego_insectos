@@ -144,7 +144,7 @@ def mostrar_imagen_actual():
     ruta = st.session_state.insecto_actual["imagen"]
     if os.path.exists(ruta):
         img = Image.open(ruta)
-       imagen_placeholder.image(img, use_container_width=False)
+        imagen_placeholder.image(img, use_container_width=False)
     else:
         st.warning(f"⚠️ Imagen no encontrada: {ruta}")
 
