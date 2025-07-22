@@ -254,8 +254,6 @@ st.markdown('<div class="pregunta">¿A qué orden pertenece este insecto?</div>'
 orden_seleccionado = st.radio("", ordenes, key="orden_radio")
 
 
-
-
 if st.button("Comprobar"):
     actual = st.session_state.insecto_actual
     if orden_seleccionado == actual["orden"]:
@@ -276,16 +274,4 @@ if st.session_state.historial:
     for i, (orden, respuesta) in enumerate(reversed(st.session_state.historial[-5:]), 1):
         st.markdown(f"{i}. Dijiste *{respuesta}*, era *{orden}*.")
 
-if st.session_state.resultado:
-    st.markdown(st.session_state.resultado, unsafe_allow_html=True)
-
-if st.button("🔄 Reiniciar"):
-    st.session_state.insecto_actual = random.choice(insectos)
-    st.session_state.girando = False
-    st.session_state.stop = False
-    st.session_state.intentos = 0
-    st.session_state.aciertos = 0
-    st.session_state.resultado = ""
-    st.session_state.orden_radio = None
-    st.rerun()
 
