@@ -131,15 +131,15 @@ st.markdown("""
 # Datos
 # Lista de insectos con sus rutas de imagen y órdenes
 insectos = [
-    {"nombre": "Mariposa", "orden": "Lepidoptera", "imagen": "siluetas/mariposa.png"},
-    {"nombre": "Escarabajo", "orden": "Coleoptera", "imagen": "siluetas/escarabajo.png"},
-    {"nombre": "Abeja", "orden": "Hymenoptera", "imagen": "siluetas/abeja.png"},
-    {"nombre": "Libélula", "orden": "Odonata", "imagen": "siluetas/libelula.png"},
-    {"nombre": "Chinche", "orden": "Hemiptera", "imagen": "siluetas/chinche.png"},
-    {"nombre": "Mosquito", "orden": "Diptera", "imagen": "siluetas/mosquito.png"},
-    {"nombre": "Saltamontes", "orden": "Orthoptera", "imagen": "siluetas/saltamontes.png"},
-    {"nombre": "Cucaracha", "orden": "Blattodea", "imagen": "siluetas/cucaracha.png"},
-    {"nombre": "Mantis", "orden": "Mantodea", "imagen": "siluetas/mantis.png"}
+    {"nombre": "mariposa", "orden": "Lepidoptera", "imagen": "siluetas/mariposa.png"},
+    {"nombre": "escarabajo", "orden": "Coleoptera", "imagen": "siluetas/escarabajo.png"},
+    {"nombre": "abeja", "orden": "Hymenoptera", "imagen": "siluetas/abeja.png"},
+    {"nombre": "libélula", "orden": "Odonata", "imagen": "siluetas/libelula.png"},
+    {"nombre": "chinche", "orden": "Hemiptera", "imagen": "siluetas/chinche.png"},
+    {"nombre": "mosquito", "orden": "Diptera", "imagen": "siluetas/mosquito.png"},
+    {"nombre": "saltamontes", "orden": "Orthoptera", "imagen": "siluetas/saltamontes.png"},
+    {"nombre": "cucaracha", "orden": "Blattodea", "imagen": "siluetas/cucaracha.png"},
+    {"nombre": "mantis", "orden": "Mantodea", "imagen": "siluetas/mantis.png"}
 
 ]
 
@@ -211,10 +211,14 @@ orden_seleccionado = st.radio("", ordenes, key="orden_radio", horizontal=False)
 # -------- COMPROBAR --------
 if st.button("Comprobar"):
     actual = st.session_state.insecto_actual
+    femenino = ["cucaracha", "abeja", "mariposa", "mantis", "libélula"]
+
+    articulo = "una" if actual["nombre"].lower() in femenino else "un"
+    
     if orden_seleccionado == actual["orden"]:
-        st.success(f"✅ ¡Correcto! Es un {actual['nombre']} ({actual['orden']})")
+        st.success(f"✅ ¡Correcto! Es {articulo} {actual['nombre']} ({actual['orden']})")
     else:
-        st.error(f"❌ Incorrecto. Era un {actual['nombre']} ({actual['orden']})")
+        st.error(f"❌ Incorrecto. Era {articulo} {actual['nombre']} ({actual['orden']})")
 
 # -------- REINICIAR --------
 if st.button("🔄 Reiniciar"):
