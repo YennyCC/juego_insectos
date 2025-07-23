@@ -275,9 +275,6 @@ if st.button("Comprobar"):
     else:
         st.error(f"❌ Incorrecto. Era un {actual['nombre']} ({actual['orden']})")
 
-    # Agregar al historial después de comprobar
-    st.session_state.historial.append((actual["orden"], orden_seleccionado))
-
 
  # Agregar al historial
     st.session_state.historial.append((actual["orden"], orden_seleccionado))
