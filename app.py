@@ -262,6 +262,7 @@ st.markdown('<div class="pregunta">¿A qué orden pertenece este insecto?</div>'
 orden_seleccionado = st.radio("", ordenes, key="orden_radio")
 
 # -------- COMPROBAR --------
+# -------- COMPROBAR --------
 if st.button("Comprobar"):
     actual = st.session_state.insecto_actual
     femenino = ["cucaracha", "abeja", "mariposa", "mantis", "libélula"]
@@ -269,11 +270,12 @@ if st.button("Comprobar"):
     articulo = "una" if actual["nombre"].lower() in femenino else "un"
 
     if orden_seleccionado == actual["orden"]:
-        st.success(f"✅ ¡Correcto! Es un {actual['nombre']} ({actual['orden']})")
+        st.success(f"✅ ¡Correcto! Es {articulo} {actual['nombre']} ({actual['orden']})")
         st.session_state.aciertos += 1
-        st.session_state.puntos += 10  # Puedes ajustar el puntaje
+        st.session_state.puntos += 10
     else:
-        st.error(f"❌ Incorrecto. Era un {actual['nombre']} ({actual['orden']})")
+        st.error(f"❌ Incorrecto. Era {articulo} {actual['nombre']} ({actual['orden']})")
+
 
 
  # Agregar al historial
