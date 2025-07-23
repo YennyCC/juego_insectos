@@ -267,11 +267,17 @@ if st.button("Comprobar"):
     femenino = ["cucaracha", "abeja", "mariposa", "mantis", "libélula"]
 
     articulo = "una" if actual["nombre"].lower() in femenino else "un"
-    
+
     if orden_seleccionado == actual["orden"]:
-        st.success(f"✅ ¡Correcto! Es {articulo} {actual['nombre']} ({actual['orden']})")
+        st.success(f"✅ ¡Correcto! Es un {actual['nombre']} ({actual['orden']})")
+        st.session_state.aciertos += 1
+        st.session_state.puntos += 10  # Puedes ajustar el puntaje
     else:
-        st.error(f"❌ Incorrecto. Era {articulo} {actual['nombre']} ({actual['orden']})")
+        st.error(f"❌ Incorrecto. Era un {actual['nombre']} ({actual['orden']})")
+
+    # Agregar al historial después de comprobar
+    st.session_state.historial.append((actual["orden"], orden_seleccionado))
+
 
  # Agregar al historial
     st.session_state.historial.append((actual["orden"], orden_seleccionado))
