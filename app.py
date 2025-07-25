@@ -256,7 +256,7 @@ if st.session_state.girando:
         nuevo = seleccionar_insecto_sin_repetir()
 if nuevo:
     st.session_state.insecto_actual = nuevo
-        time.sleep(0.07)
+    time.sleep(0.07)
     st.session_state.girando = False
     st.session_state.stop = False
     st.rerun()
