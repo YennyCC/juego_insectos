@@ -218,7 +218,7 @@ with col1:
     if st.button("🎯 Girar Ruleta"):
         st.session_state.girando = True
         st.session_state.stop = False
-        st.experimental_rerun()
+        st.rerun()
 
 with col2:
     if st.session_state.girando:
@@ -237,7 +237,7 @@ if st.session_state.girando:
         time.sleep(0.08)
     st.session_state.girando = False
     st.session_state.stop = False
-    st.experimental_rerun()
+    st.rerun()
 
 # ---- MOSTRAR IMAGEN FINAL ----
 mostrar_imagen_actual()
@@ -280,4 +280,4 @@ if st.button("🔄 Reiniciar"):
     st.session_state.historial = []
     st.session_state.stop = False
     st.session_state.girando = False
-    st.experimental_rerun()
+    st.rerun()
