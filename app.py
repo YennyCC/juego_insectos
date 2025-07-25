@@ -193,10 +193,10 @@ def mostrar_imagen_actual():
     else:
         st.warning(f"⚠️ Imagen no encontrada: {ruta}")
 
+
 # ---- Insecto nuevo sin repetir ----
 def seleccionar_insecto_sin_repetir():
     if not st.session_state.insectos_disponibles:
-        st.warning("🎉 ¡Ya adivinaste todos los insectos!")
         return None
     nuevo = random.choice(st.session_state.insectos_disponibles)
     st.session_state.insectos_disponibles.remove(nuevo)
@@ -209,7 +209,6 @@ if "insectos_disponibles" not in st.session_state:
 
 if "insecto_actual" not in st.session_state:
     st.session_state.insecto_actual = seleccionar_insecto_sin_repetir()
-
 
 if "girando" not in st.session_state:
     st.session_state.girando = False
@@ -235,8 +234,7 @@ imagen_placeholder = st.empty()
 # ---- BOTONES SIEMPRE PRESENTES ----
 with st.container():
     st.markdown('<div class="image-container">', unsafe_allow_html=True)
-    imagen_placeholder = st.empty()
-    st.markdown('<div class="button-row">', unsafe_allow_html=True)
+    mostrar_imagen_actual()  # Mostrar imagen inicial
 
     col1, col2 = st.columns([1, 1])
     with col1:
@@ -248,8 +246,7 @@ with st.container():
         if st.session_state.girando and st.button("🛑 Detener", key="detener"):
             st.session_state.stop = True
 
-    st.markdown('</div></div>', unsafe_allow_html=True)
-
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # ---- RULETA SPINNING ----
 if st.session_state.girando:
@@ -258,19 +255,17 @@ if st.session_state.girando:
         if nuevo:
             st.session_state.insecto_actual = nuevo
             mostrar_imagen_actual()
-            
+            time.sleep(0.08)
+        else:
+            break
 
     st.session_state.girando = False
     st.session_state.stop = False
     st.rerun()
 
-# Show message when all insects have been shown
+# ---- MENSAJE FINAL SI YA NO HAY INSECTOS ----
 if not st.session_state.insectos_disponibles:
-    st.success("🎉 Has visto todos los insectos disponibles.")
-    st.session_state.girando = False
-    st.session_state.stop = False
-    st.rerun()
-
+    st.success("🎉 ¡Ya adivinaste todos los insectos!")
 
 # ---- PREGUNTA Y RESPUESTA ----
 st.markdown('<div class="pregunta">¿A qué orden pertenece este insecto?</div>', unsafe_allow_html=True)
@@ -314,4 +309,3 @@ if st.button("🔄 Reiniciar"):
     st.session_state.puntos = 0
     st.session_state.historial = []
     st.rerun()
-
