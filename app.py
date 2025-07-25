@@ -272,10 +272,6 @@ if not st.session_state.insectos_disponibles:
     st.rerun()
 
 
-# ---- MOSTRAR IMAGEN FINAL SI NO ESTÁ GIRANDO ----
-if not st.session_state.girando:
-    mostrar_imagen_actual()
-
 # ---- PREGUNTA Y RESPUESTA ----
 st.markdown('<div class="pregunta">¿A qué orden pertenece este insecto?</div>', unsafe_allow_html=True)
 orden_seleccionado = st.radio("", ordenes, key="orden_radio")
