@@ -181,8 +181,8 @@ insectos = [
     {"nombre": "mantis", "orden": "Mantodea", "imagen": "siluetas/mantis.png"}
 ]
 
-ordenes = ["Blattodea", "Coleoptera", "Diptera", "Hemiptera", "Hymenoptera", "Lepidoptera", "Mantodea", "Odonata", "Orthoptera"]
-
+ordenes = sorted(list({i["orden"] for i in insectos}))
+femenino = ["cucaracha", "abeja", "mariposa", "mantis", "libélula"]
 
 # ---- ESTADOS ----
 if "insecto_actual" not in st.session_state:
@@ -203,22 +203,22 @@ if "aciertos" not in st.session_state:
 if "historial" not in st.session_state:
     st.session_state.historial = []
 
-# ---- MOSTRAR IMAGEN ----
+# ---- FUNCIÓN IMAGEN ----
 def mostrar_imagen_actual():
     ruta = st.session_state.insecto_actual["imagen"]
     if os.path.exists(ruta):
         img = Image.open(ruta)
         st.image(img, width=220)
     else:
-        st.warning(f"⚠️ Imagen no encontrada: {ruta}")
+        st.warning("⚠️ Imagen no encontrada")
 
-# ---- INTERFAZ ----
+# ---- BOTONES ----
 col1, col2 = st.columns(2)
 with col1:
     if st.button("🎯 Girar Ruleta"):
         st.session_state.girando = True
         st.session_state.stop = False
-        st.rerun()
+        st.experimental_rerun()
 
 with col2:
     if st.session_state.girando:
@@ -227,17 +227,20 @@ with col2:
 
 # ---- EFECTO RULETA ----
 if st.session_state.girando:
-    for _ in range(40):  # Gira un poco antes de verificar si se detiene
-        if st.session_state.stop:
-            break
+    imagen_placeholder = st.empty()
+    while not st.session_state.stop:
         st.session_state.insecto_actual = random.choice(insectos)
-        mostrar_imagen_actual()
-        time.sleep(0.07)
+        ruta = st.session_state.insecto_actual["imagen"]
+        if os.path.exists(ruta):
+            img = Image.open(ruta)
+            imagen_placeholder.image(img, width=220)
+        time.sleep(0.08)
     st.session_state.girando = False
     st.session_state.stop = False
-    st.rerun()
-else:
-    mostrar_imagen_actual()
+    st.experimental_rerun()
+
+# ---- MOSTRAR IMAGEN FINAL ----
+mostrar_imagen_actual()
 
 # ---- PREGUNTA ----
 st.markdown("### ¿A qué orden pertenece este insecto?")
@@ -246,7 +249,6 @@ orden_seleccionado = st.radio("", ordenes, key="orden_radio")
 # ---- COMPROBAR ----
 if st.button("Comprobar"):
     actual = st.session_state.insecto_actual
-    femenino = ["cucaracha", "abeja", "mariposa", "mantis", "libélula"]
     articulo = "una" if actual["nombre"].lower() in femenino else "un"
 
     if orden_seleccionado == actual["orden"]:
@@ -273,9 +275,9 @@ if st.session_state.historial:
 # ---- REINICIAR ----
 if st.button("🔄 Reiniciar"):
     st.session_state.insecto_actual = random.choice(insectos)
-    st.session_state.girando = False
-    st.session_state.stop = False
     st.session_state.puntos = 0
     st.session_state.aciertos = 0
     st.session_state.historial = []
-    st.rerun()
+    st.session_state.stop = False
+    st.session_state.girando = False
+    st.experimental_rerun()
