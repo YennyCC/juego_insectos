@@ -197,17 +197,19 @@ def mostrar_imagen_actual():
 def seleccionar_insecto_sin_repetir():
     if not st.session_state.insectos_disponibles:
         st.warning("🎉 ¡Ya adivinaste todos los insectos!")
-        return
+        return None
     nuevo = random.choice(st.session_state.insectos_disponibles)
-    st.session_state.insecto_actual = nuevo
     st.session_state.insectos_disponibles.remove(nuevo)
+    return nuevo
+
 
 # ---- INICIALIZAR ESTADOS NECESARIOS ----
 if "insectos_disponibles" not in st.session_state:
     st.session_state.insectos_disponibles = insectos.copy()
 
 if "insecto_actual" not in st.session_state:
-    seleccionar_insecto_sin_repetir()
+    st.session_state.insecto_actual = seleccionar_insecto_sin_repetir()
+
 
 if "girando" not in st.session_state:
     st.session_state.girando = False
@@ -251,12 +253,20 @@ with st.container():
 # ---- RULETA SPINNING ----
 if st.session_state.girando:
     while not st.session_state.stop and st.session_state.insectos_disponibles:
-        seleccionar_insecto_sin_repetir()
-        mostrar_imagen_actual()
+        nuevo = seleccionar_insecto_sin_repetir()
+if nuevo:
+    st.session_state.insecto_actual = nuevo
         time.sleep(0.07)
     st.session_state.girando = False
     st.session_state.stop = False
     st.rerun()
+
+if not st.session_state.insectos_disponibles:
+    st.success("🎉 Has visto todos los insectos disponibles.")
+    st.session_state.girando = False
+    st.session_state.stop = False
+    st.rerun()
+
 
 # ---- MOSTRAR IMAGEN FINAL SI NO ESTÁ GIRANDO ----
 if not st.session_state.girando:
@@ -297,9 +307,11 @@ if st.session_state.historial:
 # ---- REINICIAR ----
 if st.button("🔄 Reiniciar"):
     st.session_state.insectos_disponibles = insectos.copy()
-    seleccionar_insecto_sin_repetir()
+    st.session_state.insecto_actual = seleccionar_insecto_sin_repetir()
     st.session_state.girando = False
     st.session_state.stop = False
     st.session_state.aciertos = 0
     st.session_state.puntos = 0
     st.session_state.historial = []
+    st.rerun()
+
