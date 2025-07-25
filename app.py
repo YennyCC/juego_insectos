@@ -184,9 +184,30 @@ insectos = [
 ordenes = ["Blattodea", "Coleoptera", "Diptera", "Hemiptera", "Hymenoptera", "Lepidoptera", "Mantodea", "Odonata", "Orthoptera"]
 
 
+# ---- FUNCIÓN PARA MOSTRAR IMAGEN ACTUAL ----
+def mostrar_imagen_actual():
+    ruta = st.session_state.insecto_actual["imagen"]
+    if os.path.exists(ruta):
+        img = Image.open(ruta)
+        imagen_placeholder.image(img, use_container_width=False)
+    else:
+        st.warning(f"⚠️ Imagen no encontrada: {ruta}")
+
+# ---- Insecto nuevo sin repetir ----
+def seleccionar_insecto_sin_repetir():
+    if not st.session_state.insectos_disponibles:
+        st.warning("🎉 ¡Ya adivinaste todos los insectos!")
+        return
+    nuevo = random.choice(st.session_state.insectos_disponibles)
+    st.session_state.insecto_actual = nuevo
+    st.session_state.insectos_disponibles.remove(nuevo)
+
 # ---- INICIALIZAR ESTADOS NECESARIOS ----
+if "insectos_disponibles" not in st.session_state:
+    st.session_state.insectos_disponibles = insectos.copy()
+
 if "insecto_actual" not in st.session_state:
-    st.session_state.insecto_actual = random.choice(insectos)
+    seleccionar_insecto_sin_repetir()
 
 if "girando" not in st.session_state:
     st.session_state.girando = False
@@ -206,24 +227,10 @@ if "historial" not in st.session_state:
 if "resultado" not in st.session_state:
     st.session_state.resultado = ""
 
-
 # ---- CONTENEDOR DE IMAGEN ----
 imagen_placeholder = st.empty()
 
-# ---- FUNCIÓN PARA MOSTRAR IMAGEN ACTUAL ----
-def mostrar_imagen_actual():
-    ruta = st.session_state.insecto_actual["imagen"]
-    if os.path.exists(ruta):
-        img = Image.open(ruta)
-        imagen_placeholder.image(img, use_container_width=False)
-    else:
-        st.warning(f"⚠️ Imagen no encontrada: {ruta}")
-
-def seleccionar_insecto():
-    st.session_state.insecto_actual = random.choice(insectos)
-
 # ---- BOTONES SIEMPRE PRESENTES ----
-# Image and buttons together
 with st.container():
     st.markdown('<div class="image-container">', unsafe_allow_html=True)
     imagen_placeholder = st.empty()
@@ -241,32 +248,28 @@ with st.container():
 
     st.markdown('</div></div>', unsafe_allow_html=True)
 
-
 # ---- RULETA SPINNING ----
 if st.session_state.girando:
-    while not st.session_state.stop:
-        st.session_state.insecto_actual = random.choice(insectos)
+    while not st.session_state.stop and st.session_state.insectos_disponibles:
+        seleccionar_insecto_sin_repetir()
         mostrar_imagen_actual()
-        time.sleep(0.07)  # adjust speed
+        time.sleep(0.07)
     st.session_state.girando = False
     st.session_state.stop = False
-    st.rerun()  # refresh to exit spinning loop
+    st.rerun()
 
 # ---- MOSTRAR IMAGEN FINAL SI NO ESTÁ GIRANDO ----
 if not st.session_state.girando:
     mostrar_imagen_actual()
-
 
 # ---- PREGUNTA Y RESPUESTA ----
 st.markdown('<div class="pregunta">¿A qué orden pertenece este insecto?</div>', unsafe_allow_html=True)
 orden_seleccionado = st.radio("", ordenes, key="orden_radio")
 
 # -------- COMPROBAR --------
-# -------- COMPROBAR --------
 if st.button("Comprobar"):
     actual = st.session_state.insecto_actual
     femenino = ["cucaracha", "abeja", "mariposa", "mantis", "libélula"]
-
     articulo = "una" if actual["nombre"].lower() in femenino else "un"
 
     if orden_seleccionado == actual["orden"]:
@@ -276,10 +279,9 @@ if st.button("Comprobar"):
     else:
         st.error(f"❌ Incorrecto. Era {articulo} {actual['nombre']} ({actual['orden']})")
 
-
-
- # Agregar al historial
+    # Agregar al historial
     st.session_state.historial.append((actual["orden"], orden_seleccionado))
+
 # ---- RESULTADOS ----
 st.markdown("""
 ---
@@ -292,13 +294,12 @@ if st.session_state.historial:
     for i, (orden, respuesta) in enumerate(reversed(st.session_state.historial[-5:]), 1):
         st.markdown(f"{i}. Dijiste *{respuesta}*, era *{orden}*.")
 
+# ---- REINICIAR ----
 if st.button("🔄 Reiniciar"):
-    st.session_state.insecto_actual = random.choice(insectos)
+    st.session_state.insectos_disponibles = insectos.copy()
+    seleccionar_insecto_sin_repetir()
     st.session_state.girando = False
     st.session_state.stop = False
-    st.session_state.puntos = 0
     st.session_state.aciertos = 0
+    st.session_state.puntos = 0
     st.session_state.historial = []
-    st.rerun()
-
-
