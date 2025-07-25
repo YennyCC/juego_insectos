@@ -203,27 +203,39 @@ if "aciertos" not in st.session_state:
 if "historial" not in st.session_state:
     st.session_state.historial = []
 
-# ---- FUNCIÓN IMAGEN ----
+# ---- CONTENEDOR DE IMAGEN ----
+imagen_placeholder = st.empty()
+
+# ---- FUNCIÓN PARA MOSTRAR IMAGEN ACTUAL ----
 def mostrar_imagen_actual():
     ruta = st.session_state.insecto_actual["imagen"]
     if os.path.exists(ruta):
         img = Image.open(ruta)
-        st.image(img, width=220)
+        imagen_placeholder.image(img, use_container_width=False)
     else:
-        st.warning("⚠️ Imagen no encontrada")
+        st.warning(f"⚠️ Imagen no encontrada: {ruta}")
 
-# ---- BOTONES ----
-col1, col2 = st.columns(2)
-with col1:
-    if st.button("🎯 Girar Ruleta"):
-        st.session_state.girando = True
-        st.session_state.stop = False
-        st.rerun()
+def seleccionar_insecto():
+    st.session_state.insecto_actual = random.choice(insectos)
 
-with col2:
-    if st.session_state.girando:
-        if st.button("🛑 Detener"):
+# ---- BOTONES SIEMPRE PRESENTES ----
+# Image and buttons together
+with st.container():
+    st.markdown('<div class="image-container">', unsafe_allow_html=True)
+    imagen_placeholder = st.empty()
+    st.markdown('<div class="button-row">', unsafe_allow_html=True)
+
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        if st.button("🎯 Girar Ruleta", key="girar"):
+            st.session_state.girando = True
+            st.session_state.stop = False
+            st.rerun()
+    with col2:
+        if st.session_state.girando and st.button("🛑 Detener", key="detener"):
             st.session_state.stop = True
+
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
 # ---- EFECTO RULETA ----
 if st.session_state.girando:
