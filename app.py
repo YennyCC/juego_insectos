@@ -237,19 +237,20 @@ with st.container():
 
     st.markdown('</div></div>', unsafe_allow_html=True)
 
-# ---- EFECTO RULETA ----
+
+# ---- RULETA SPINNING ----
 if st.session_state.girando:
-    imagen_placeholder = st.empty()
     while not st.session_state.stop:
         st.session_state.insecto_actual = random.choice(insectos)
-        ruta = st.session_state.insecto_actual["imagen"]
-         if os.path.exists(ruta):
-        img = Image.open(ruta)
-        imagen_placeholder.image(img, use_container_width=False)
-        time.sleep(0.08)
+        mostrar_imagen_actual()
+        time.sleep(0.07)  # adjust speed
     st.session_state.girando = False
     st.session_state.stop = False
-    st.rerun()
+    st.rerun()  # refresh to exit spinning loop
+
+# ---- MOSTRAR IMAGEN FINAL SI NO ESTÁ GIRANDO ----
+if not st.session_state.girando:
+    mostrar_imagen_actual()
 
 # ---- MOSTRAR IMAGEN FINAL ----
 mostrar_imagen_actual()
