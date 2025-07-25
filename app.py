@@ -258,7 +258,7 @@ if st.session_state.girando:
         if nuevo:
             st.session_state.insecto_actual = nuevo
             mostrar_imagen_actual()
-            time.sleep(0.07)
+            
 
     st.session_state.girando = False
     st.session_state.stop = False
