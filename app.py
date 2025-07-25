@@ -250,17 +250,21 @@ with st.container():
 
     st.markdown('</div></div>', unsafe_allow_html=True)
 
+
 # ---- RULETA SPINNING ----
 if st.session_state.girando:
     while not st.session_state.stop and st.session_state.insectos_disponibles:
         nuevo = seleccionar_insecto_sin_repetir()
-if nuevo:
-    st.session_state.insecto_actual = nuevo
-    time.sleep(0.07)
+        if nuevo:
+            st.session_state.insecto_actual = nuevo
+            mostrar_imagen_actual()
+            time.sleep(0.07)
+
     st.session_state.girando = False
     st.session_state.stop = False
     st.rerun()
 
+# Show message when all insects have been shown
 if not st.session_state.insectos_disponibles:
     st.success("🎉 Has visto todos los insectos disponibles.")
     st.session_state.girando = False
