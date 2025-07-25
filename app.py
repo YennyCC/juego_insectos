@@ -243,9 +243,9 @@ if st.session_state.girando:
     while not st.session_state.stop:
         st.session_state.insecto_actual = random.choice(insectos)
         ruta = st.session_state.insecto_actual["imagen"]
-        if os.path.exists(ruta):
-            img = Image.open(ruta)
-            imagen_placeholder.image(img, width=220)
+         if os.path.exists(ruta):
+        img = Image.open(ruta)
+        imagen_placeholder.image(img, use_container_width=False)
         time.sleep(0.08)
     st.session_state.girando = False
     st.session_state.stop = False
